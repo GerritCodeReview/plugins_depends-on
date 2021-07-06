@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "667a9b81_e24a0515",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2021-07-06T23:03:31Z",
+      "side": 1,
+      "message": "I also changed the wording here a bit as it seemed to suggest that the plugin will actually propagate the dependent changes which it does not do.",
+      "range": {
+        "startLine": 17,
+        "startChar": 13,
+        "endLine": 17,
+        "endChar": 43
+      },
+      "revId": "3029fc73b3ba4e90a2070a91ed83febe25e378b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d2fcd9ea_dfcfe8ab",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 2
@@ -14,6 +37,24 @@
       "writtenOn": "2021-07-06T22:45:35Z",
       "side": 1,
       "message": "Maybe this should explain that this is useful to remove dependencies that were defined in previous comments?",
+      "revId": "3029fc73b3ba4e90a2070a91ed83febe25e378b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "139e1bf2_37070a66",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2021-07-06T23:03:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2fcd9ea_dfcfe8ab",
       "revId": "3029fc73b3ba4e90a2070a91ed83febe25e378b4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
