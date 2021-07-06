@@ -35,6 +35,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41b8b82b_49545d24",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2021-07-06T22:36:48Z",
+      "side": 1,
+      "message": "Attempted in next PS",
+      "parentUuid": "dbb536d9_9389e192",
+      "revId": "88654d95dee7b4f9ac23630af7aeee5fab763cb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2660c695_3777d90c",
@@ -48,6 +66,30 @@
       "writtenOn": "2021-07-06T21:49:00Z",
       "side": 1,
       "message": "s/\"Depends-on:\"/a \"Depends-on:\"/",
+      "range": {
+        "startLine": 15,
+        "startChar": 54,
+        "endLine": 15,
+        "endChar": 61
+      },
+      "revId": "88654d95dee7b4f9ac23630af7aeee5fab763cb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "914c6459_78763888",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2021-07-06T22:36:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2660c695_3777d90c",
       "range": {
         "startLine": 15,
         "startChar": 54,
@@ -81,6 +123,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e7cbd2a_c3809b3f",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2021-07-06T22:36:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88b75b31_501d16ac",
+      "range": {
+        "startLine": 16,
+        "startChar": 44,
+        "endLine": 16,
+        "endChar": 51
+      },
+      "revId": "88654d95dee7b4f9ac23630af7aeee5fab763cb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb557cbe_732c8afc",
@@ -94,6 +160,30 @@
       "writtenOn": "2021-07-06T21:49:00Z",
       "side": 1,
       "message": "s/that/it/  s/doesn\u0027t propagate anything./no dependencies will be propagate./",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 18,
+        "endChar": 12
+      },
+      "revId": "88654d95dee7b4f9ac23630af7aeee5fab763cb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "301bd871_12a2b3b6",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2021-07-06T22:36:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb557cbe_732c8afc",
       "range": {
         "startLine": 18,
         "startChar": 8,
