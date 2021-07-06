@@ -16,6 +16,92 @@
       "message": "└─ $ ▶ bazel build depends-on\nDEBUG: Rule \u0027com_googlesource_gerrit_bazlets\u0027 indicated that a canonical reproducible form can be obtained by modifying arguments shallow_since \u003d \"1621433545 -0600\"\nDEBUG: Repository com_googlesource_gerrit_bazlets instantiated at:\n  /Users/kaushikl/workspace/other/upstream_depends_on/WORKSPACE:5:13: in \u003ctoplevel\u003e\n  /Users/kaushikl/workspace/other/upstream_depends_on/bazlets.bzl:9:23: in load_bazlets\nRepository rule git_repository defined at:\n  /Users/kaushikl/.cache/bazel/8cc173913d7c0f3f9411e045ec9b96ae/external/bazel_tools/tools/build_defs/repo/git.bzl:199:33: in \u003ctoplevel\u003e\nINFO: Analyzed target //:depends-on (1 packages loaded, 20 targets configured).\nINFO: Found 1 target...\nTarget //:depends-on up-to-date:\n  bazel-bin/depends-on.jar\nINFO: Elapsed time: 0.315s, Critical Path: 0.08s\nINFO: 1 process: 1 internal.\nINFO: Build completed successfully, 1 total action\n\n\n└─ $ ▶ bazel test depends-on_tests\nDEBUG: Rule \u0027com_googlesource_gerrit_bazlets\u0027 indicated that a canonical reproducible form can be obtained by modifying arguments shallow_since \u003d \"1621433545 -0600\"\nDEBUG: Repository com_googlesource_gerrit_bazlets instantiated at:\n  /Users/kaushikl/workspace/other/upstream_depends_on/WORKSPACE:5:13: in \u003ctoplevel\u003e\n  /Users/kaushikl/workspace/other/upstream_depends_on/bazlets.bzl:9:23: in load_bazlets\nRepository rule git_repository defined at:\n  /Users/kaushikl/.cache/bazel/8cc173913d7c0f3f9411e045ec9b96ae/external/bazel_tools/tools/build_defs/repo/git.bzl:199:33: in \u003ctoplevel\u003e\nINFO: Analyzed target //:depends-on_tests (0 packages loaded, 5 targets configured).\nINFO: Found 1 test target...\nTarget //:depends-on_tests up-to-date:\n  bazel-bin/depends-on_tests.jar\n  bazel-bin/depends-on_tests\nINFO: Elapsed time: 0.237s, Critical Path: 0.07s\nINFO: 1 process: 1 internal.\nINFO: Build completed successfully, 1 total action\n//:depends-on_tests                                             (cached) PASSED in 5.1s\n\nExecuted 0 out of 1 test: 1 test passes.\nThere were tests whose specified size is too big. Use the --test_verbose_timeout_warnings command line option to see\nINFO: Build completed successfully, 1 total action\n\n\n└─ $ ▶ bazel test docker-tests\nDEBUG: Rule \u0027com_googlesource_gerrit_bazlets\u0027 indicated that a canonical reproducible form can be obtained by modifying arguments shallow_since \u003d \"1621433545 -0600\"\nDEBUG: Repository com_googlesource_gerrit_bazlets instantiated at:\n  /Users/kaushikl/workspace/other/upstream_depends_on/WORKSPACE:5:13: in \u003ctoplevel\u003e\n  /Users/kaushikl/workspace/other/upstream_depends_on/bazlets.bzl:9:23: in load_bazlets\nRepository rule git_repository defined at:\n  /Users/kaushikl/.cache/bazel/8cc173913d7c0f3f9411e045ec9b96ae/external/bazel_tools/tools/build_defs/repo/git.bzl:199:33: in \u003ctoplevel\u003e\nINFO: Analyzed target //:docker-tests (0 packages loaded, 10 targets configured).\nINFO: Found 1 test target...\nTarget //:docker-tests up-to-date:\n  bazel-bin/docker-tests\nINFO: Elapsed time: 42.273s, Critical Path: 42.08s\nINFO: 4 processes: 2 internal, 2 local.\nINFO: Build completed successfully, 4 total actions\n//:docker-tests                                                          PASSED in 42.0s\n\nINFO: Build completed successfully, 4 total actions",
       "revId": "88654d95dee7b4f9ac23630af7aeee5fab763cb3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbb536d9_9389e192",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1003883
+      },
+      "writtenOn": "2021-07-06T21:49:00Z",
+      "side": 1,
+      "message": "This should probably explain a bit more about the accepted format, it makes it seem like it only supports \"exactly\" two changes.",
+      "revId": "88654d95dee7b4f9ac23630af7aeee5fab763cb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2660c695_3777d90c",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1003883
+      },
+      "writtenOn": "2021-07-06T21:49:00Z",
+      "side": 1,
+      "message": "s/\"Depends-on:\"/a \"Depends-on:\"/",
+      "range": {
+        "startLine": 15,
+        "startChar": 54,
+        "endLine": 15,
+        "endChar": 61
+      },
+      "revId": "88654d95dee7b4f9ac23630af7aeee5fab763cb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88b75b31_501d16ac",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1003883
+      },
+      "writtenOn": "2021-07-06T21:49:00Z",
+      "side": 1,
+      "message": "s/latest/the latest/\n\nsame below",
+      "range": {
+        "startLine": 16,
+        "startChar": 44,
+        "endLine": 16,
+        "endChar": 51
+      },
+      "revId": "88654d95dee7b4f9ac23630af7aeee5fab763cb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb557cbe_732c8afc",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1003883
+      },
+      "writtenOn": "2021-07-06T21:49:00Z",
+      "side": 1,
+      "message": "s/that/it/  s/doesn\u0027t propagate anything./no dependencies will be propagate./",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 18,
+        "endChar": 12
+      },
+      "revId": "88654d95dee7b4f9ac23630af7aeee5fab763cb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
