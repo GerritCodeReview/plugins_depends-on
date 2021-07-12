@@ -16,6 +16,24 @@
       "message": "This also doesn\u0027t explain what it adds to the new Depends-on tag, i.e. that the new dependencies will be the ChangeIds, not the numbers of the old changes. It would then help to explain why the change nums are not propagated, and how one can go about manually updating the changeIds to the right change nums if they resolve to changes destined for the right branches.",
       "revId": "b6836042ed0c95f29b9082730164b1b85f98f917",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb7a4e8d_c9335340",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2021-07-12T23:00:38Z",
+      "side": 1,
+      "message": "Attempted in next PS",
+      "parentUuid": "96d84aa5_c661e37b",
+      "revId": "b6836042ed0c95f29b9082730164b1b85f98f917",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
