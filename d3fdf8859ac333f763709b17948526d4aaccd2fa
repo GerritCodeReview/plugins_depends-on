@@ -16,6 +16,24 @@
       "message": "Shall we get this into CI?",
       "revId": "d3fdf8859ac333f763709b17948526d4aaccd2fa",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22bb0305_92381a7a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-07-16T14:43:23Z",
+      "side": 1,
+      "message": "Zuul config in PS7 looks correct, not sure why it isn\u0027t triggering.",
+      "parentUuid": "ef901125_97567900",
+      "revId": "d3fdf8859ac333f763709b17948526d4aaccd2fa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
