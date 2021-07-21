@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4c4bd7f_931b32dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2021-07-21T22:23:29Z",
+      "side": 1,
+      "message": "@James I have added the required configs for zuul (see diff between patch-sets 4 and 5) in this change. I have also updated zuul/ops (see https://gerrit-review.googlesource.com/c/zuul/ops/+/312343). The zuul pipeline does seem to trigger, however I see a message like below. Do you know what I may be doing wrong?\n\n The combined check state has been updated to NOT_RELEVANT for patch set 7 of this change.\n All checks:\n Not Relevant: Zuul Check Pipeline",
+      "revId": "b386b6eb991966d085b18cbee50a9da78ab1d27a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
