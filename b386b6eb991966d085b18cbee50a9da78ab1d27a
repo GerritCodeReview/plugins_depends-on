@@ -16,6 +16,155 @@
       "message": "@James I have added the required configs for zuul (see diff between patch-sets 4 and 5) in this change. I have also updated zuul/ops (see https://gerrit-review.googlesource.com/c/zuul/ops/+/312343). The zuul pipeline does seem to trigger, however I see a message like below. Do you know what I may be doing wrong?\n\n The combined check state has been updated to NOT_RELEVANT for patch set 7 of this change.\n All checks:\n Not Relevant: Zuul Check Pipeline",
       "revId": "b386b6eb991966d085b18cbee50a9da78ab1d27a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dbd3161_3f4fae59",
+        "filename": "BUILD",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-07-23T16:35:25Z",
+      "side": 1,
+      "message": "Put this into a tools/bzl/junit.bzl so that we can build this in-tree as well if needed.\n\nhttps://gerrit.googlesource.com/plugins/reviewers/+/0662654d8cf77fa37367085695dbea3622f98676/tools/bzl/junit.bzl",
+      "revId": "b386b6eb991966d085b18cbee50a9da78ab1d27a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0d62929_09057dca",
+        "filename": "BUILD",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-07-23T16:35:25Z",
+      "side": 1,
+      "message": "plugin_name",
+      "range": {
+        "startLine": 52,
+        "startChar": 11,
+        "endLine": 52,
+        "endChar": 23
+      },
+      "revId": "b386b6eb991966d085b18cbee50a9da78ab1d27a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e9efea3_4cc9814f",
+        "filename": "BUILD",
+        "patchSetId": 7
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-07-23T16:35:25Z",
+      "side": 1,
+      "message": "You could adjust this to be \"*Test.java\" and build any other src/test files in the depends-on__plugin_test_deps section below.\n\nhttps://gerrit.googlesource.com/plugins/replication/+/refs/heads/master/BUILD#23",
+      "range": {
+        "startLine": 71,
+        "startChar": 35,
+        "endLine": 71,
+        "endChar": 36
+      },
+      "revId": "b386b6eb991966d085b18cbee50a9da78ab1d27a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ab1d78b_d5b01bab",
+        "filename": "BUILD",
+        "patchSetId": 7
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-07-23T16:35:25Z",
+      "side": 1,
+      "message": "use \u0027testonly \u003d True\u0027 since that\u0027s clearer.",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 17
+      },
+      "revId": "b386b6eb991966d085b18cbee50a9da78ab1d27a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76754a9e_2a2eabfb",
+        "filename": "BUILD",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-07-23T16:35:25Z",
+      "side": 1,
+      "message": "Add srcs like in https://gerrit.googlesource.com/plugins/replication/+/refs/heads/master/BUILD#48",
+      "revId": "b386b6eb991966d085b18cbee50a9da78ab1d27a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4d0d3e6_66a37b1c",
+        "filename": "BUILD",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-07-23T16:35:25Z",
+      "side": 1,
+      "message": "use \u0027plugin_name\u0027 here instead (like on line 90)",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 29
+      },
+      "revId": "b386b6eb991966d085b18cbee50a9da78ab1d27a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad25926b_8eb252f7",
+        "filename": "tools/eclipse/project.sh",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-07-23T16:35:25Z",
+      "side": 1,
+      "message": "#!/usr/bin/env bash",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 11
+      },
+      "revId": "b386b6eb991966d085b18cbee50a9da78ab1d27a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
