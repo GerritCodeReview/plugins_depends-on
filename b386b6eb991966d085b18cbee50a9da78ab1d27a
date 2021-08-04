@@ -35,6 +35,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fcf5cc1_397714f6",
+        "filename": "BUILD",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2021-08-04T22:42:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4dbd3161_3f4fae59",
+      "revId": "b386b6eb991966d085b18cbee50a9da78ab1d27a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c0d62929_09057dca",
@@ -48,6 +66,30 @@
       "writtenOn": "2021-07-23T16:35:25Z",
       "side": 1,
       "message": "plugin_name",
+      "range": {
+        "startLine": 52,
+        "startChar": 11,
+        "endLine": 52,
+        "endChar": 23
+      },
+      "revId": "b386b6eb991966d085b18cbee50a9da78ab1d27a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "462b5603_4dbe94a4",
+        "filename": "BUILD",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2021-08-04T22:42:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0d62929_09057dca",
       "range": {
         "startLine": 52,
         "startChar": 11,
@@ -81,6 +123,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1eafee4a_0dc9d6b1",
+        "filename": "BUILD",
+        "patchSetId": 7
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2021-08-04T22:42:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e9efea3_4cc9814f",
+      "range": {
+        "startLine": 71,
+        "startChar": 35,
+        "endLine": 71,
+        "endChar": 36
+      },
+      "revId": "b386b6eb991966d085b18cbee50a9da78ab1d27a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ab1d78b_d5b01bab",
@@ -94,6 +160,30 @@
       "writtenOn": "2021-07-23T16:35:25Z",
       "side": 1,
       "message": "use \u0027testonly \u003d True\u0027 since that\u0027s clearer.",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 17
+      },
+      "revId": "b386b6eb991966d085b18cbee50a9da78ab1d27a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b4c1fa9_1ac48bbd",
+        "filename": "BUILD",
+        "patchSetId": 7
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2021-08-04T22:42:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ab1d78b_d5b01bab",
       "range": {
         "startLine": 78,
         "startChar": 4,
@@ -121,6 +211,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7dc68726_abc1411a",
+        "filename": "BUILD",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2021-08-04T22:42:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76754a9e_2a2eabfb",
+      "revId": "b386b6eb991966d085b18cbee50a9da78ab1d27a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4d0d3e6_66a37b1c",
@@ -134,6 +242,30 @@
       "writtenOn": "2021-07-23T16:35:25Z",
       "side": 1,
       "message": "use \u0027plugin_name\u0027 here instead (like on line 90)",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 29
+      },
+      "revId": "b386b6eb991966d085b18cbee50a9da78ab1d27a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3081dc5d_61fb87cd",
+        "filename": "BUILD",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2021-08-04T22:42:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4d0d3e6_66a37b1c",
       "range": {
         "startLine": 81,
         "startChar": 8,
@@ -161,6 +293,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52bc96f7_97cbb194",
+        "filename": "BUILD",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2021-08-04T22:42:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95ae6cef_83e436d0",
+      "revId": "b386b6eb991966d085b18cbee50a9da78ab1d27a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad25926b_8eb252f7",
@@ -174,6 +324,30 @@
       "writtenOn": "2021-07-23T16:35:25Z",
       "side": 1,
       "message": "#!/usr/bin/env bash",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 11
+      },
+      "revId": "b386b6eb991966d085b18cbee50a9da78ab1d27a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f275f193_246a0160",
+        "filename": "tools/eclipse/project.sh",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2021-08-04T22:42:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad25926b_8eb252f7",
       "range": {
         "startLine": 1,
         "startChar": 0,
