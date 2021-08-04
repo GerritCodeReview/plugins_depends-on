@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e831d10a_a6326d69",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2021-08-04T22:43:02Z",
+      "side": 1,
+      "message": "└─ $ ▶ bazel build depends-on\nINFO: Analyzed target //:depends-on (29 packages loaded, 720 targets configured).\nINFO: Found 1 target...\nTarget //:depends-on up-to-date:\n  bazel-bin/depends-on.jar\nINFO: Elapsed time: 6.499s, Critical Path: 2.66s\nINFO: 3 processes: 1 internal, 2 darwin-sandbox.\nINFO: Build completed successfully, 3 total actions\n\n\n└─ $ ▶ bazel test depends-on_tests\nINFO: Analyzed target //:depends-on_tests (6 packages loaded, 70 targets configured).\nINFO: Found 1 test target...\nTarget //:depends-on_tests up-to-date:\n  bazel-bin/depends-on_tests.jar\n  bazel-bin/depends-on_tests\nINFO: Elapsed time: 5.430s, Critical Path: 4.99s\nINFO: 3 processes: 1 internal, 1 darwin-sandbox, 1 worker.\nINFO: Build completed successfully, 3 total actions\n//:depends-on_tests                                                      PASSED in 4.6s\n\nExecuted 1 out of 1 test: 1 test passes.\nINFO: Build completed successfully, 3 total actions\n\n\n└─ $ ▶ bazel test docker-tests\nINFO: Analyzed target //:docker-tests (0 packages loaded, 12 targets configured).\nINFO: Found 1 test target...\nTarget //:docker-tests up-to-date:\n  bazel-bin/docker-tests\nINFO: Elapsed time: 40.424s, Critical Path: 40.26s\nINFO: 2 processes: 2 local.\nINFO: Build completed successfully, 2 total actions\n//:docker-tests                                                          PASSED in 40.1s\n\nINFO: Build completed successfully, 2 total actions",
+      "revId": "4d6a43ac5b6f68f4d1b3d23bbc420d11cb3d76f3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
