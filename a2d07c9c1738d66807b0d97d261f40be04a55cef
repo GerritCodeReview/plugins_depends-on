@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7138c972_dace183d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-09-08T23:16:01Z",
+      "side": 1,
+      "message": "Hmm, Zuul gave a -1 because it verifies against master because this is on the master branch. Known issue with Zuul that is being worked on.\n\nMaybe it doesn\u0027t make sense to submit this change on master though and we should wait until we\u0027ve updated master for 3.3/3.4/master and then move this change to a new stable-3.2 branch?",
+      "revId": "a2d07c9c1738d66807b0d97d261f40be04a55cef",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
