@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b7d3873_9d038adc",
+        "filename": ".zuul.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1041506
+      },
+      "writtenOn": "2021-12-03T09:24:32Z",
+      "side": 1,
+      "message": "There is no such a thing as \u003cproject.description\u003e field, see https://zuul-ci.org/docs/zuul/reference/project_def.html#attr-project\n\nIt\u0027s not clear why Zuul doesn\u0027t report an error.",
+      "revId": "a2d07c9c1738d66807b0d97d261f40be04a55cef",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "7138c972_dace183d",
