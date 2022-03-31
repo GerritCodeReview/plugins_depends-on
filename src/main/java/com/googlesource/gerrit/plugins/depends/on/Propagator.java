@@ -60,7 +60,7 @@ public class Propagator {
     if (changeKey != null) {
       return changeKey;
     }
-    Change c = changeNotesFactory.createChecked(dep.id()).getChange();
+    Change c = changeNotesFactory.createCheckedUsingIndexLookup(dep.id()).getChange();
     if (c != null) {
       return c.getKey();
     }
