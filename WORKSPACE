@@ -3,7 +3,7 @@ workspace(name = "depends-on")
 load("//:bazlets.bzl", "load_bazlets")
 
 load_bazlets(
-    commit = "f96f4bce9ffafeaa200fc009a378921c512fcb0a",
+    commit = "a52e3f381e2fe2a53f7641150ff723171a2dda1e",
 )
 
 load(

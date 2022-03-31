@@ -51,9 +51,9 @@ public class CoreListener implements EventListener {
           Optional<Id> destId = Change.Id.tryParse(Integer.toString(change.number));
           if (sourceId.isPresent() && destId.isPresent()) {
             Change sourceChange =
-                changeNotesFactory.createChecked(sourceId.get()).getChange();
+                changeNotesFactory.createCheckedUsingIndexLookup(sourceId.get()).getChange();
             Change destChange =
-                changeNotesFactory.createChecked(destId.get()).getChange();
+                changeNotesFactory.createCheckedUsingIndexLookup(destId.get()).getChange();
             propagator.propagateFromSourceToDestination(sourceChange, destChange);
           }
         } catch (InvalidChangeOperationException | NoSuchChangeException e) {
