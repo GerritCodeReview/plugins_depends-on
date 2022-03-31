@@ -86,7 +86,7 @@ public class ChangeMessageStore implements DependencyResolver {
    * <p>return empty set means no dependencies found.
    */
   public Set<DependsOn> load(Change.Id cid) {
-    ChangeNotes changeNote = changeNotesFactory.createChecked(cid);
+    ChangeNotes changeNote = changeNotesFactory.createCheckedUsingIndexLookup(cid);
     List<ChangeMessage> messages = cmUtil.byChange(changeNote);
     List<ChangeMessage> sortedChangeMessages =
         messages.stream()
@@ -135,7 +135,7 @@ public class ChangeMessageStore implements DependencyResolver {
     ReviewInput review = new ReviewInput();
     review.message = Strings.emptyToNull(comment.toString());
     ChangeNotes changeNotes =
-        changeNotesFactory.createChecked(patchSetId.changeId());
+        changeNotesFactory.createCheckedUsingIndexLookup(patchSetId.changeId());
     ChangeResource changeResource = changeResourceFactory.create(changeNotes, currentUser);
     PatchSet patchSet = changeNotes.load().getPatchSets().get(patchSetId);
     try {
