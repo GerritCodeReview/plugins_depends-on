@@ -83,6 +83,13 @@ java_library(
     exports = PLUGIN_DEPS + PLUGIN_TEST_DEPS + [plugin_name],
 )
 
+config_setting(
+    name = "standalone",
+    define_values = {
+        "BUILD_MODE": "standalone",
+    },
+)
+
 sh_test(
     name = "docker-tests",
     size = "medium",
@@ -90,8 +97,17 @@ sh_test(
     args = [
         "--depends-on-plugin-jar",
         "$(location :depends-on)",
-    ],
-    data = [plugin_name] + glob(["test/**"]),
+    ] + select({
+        ":standalone": [],
+        "//conditions:default": [
+            "--gerrit-war",
+            "$(location //:gerrit.war)",
+        ],
+    }),
+    data = [plugin_name] + glob(["test/**"]) + select({
+        ":standalone": [],
+        "//conditions:default": ["//:gerrit.war"],
+    }),
     local = True,
     tags = ["docker"],
 )
