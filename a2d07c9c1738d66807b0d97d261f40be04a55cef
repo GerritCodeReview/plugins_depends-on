@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "55c70766_8b02c611",
+        "filename": ".zuul.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2022-04-02T00:10:12Z",
+      "side": 1,
+      "message": "That page also doesn\u0027t list description for project templates, but the change in the commit uses that field. Also, I see description used like this on https://zuul-ci.org/docs/zuul/latest/job-content.html?highlight\u003ddescription#project-variables",
+      "parentUuid": "6b7d3873_9d038adc",
+      "revId": "a2d07c9c1738d66807b0d97d261f40be04a55cef",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "7138c972_dace183d",
