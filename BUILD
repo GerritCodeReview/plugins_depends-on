@@ -1,4 +1,6 @@
 load("//tools/bzl:junit.bzl", "junit_tests")
+load("//tools/bzl:js.bzl", "gerrit_js_bundle")
+load("//tools/js:eslint.bzl", "eslint")
 load(
     "//tools/bzl:plugin.bzl",
     "PLUGIN_DEPS",
@@ -56,10 +58,34 @@ gerrit_plugin(
         "Implementation-URL: https://gerrit-review.googlesource.com/#/admin/projects/plugins/" + plugin_name,
         "Gerrit-Module: com.googlesource.gerrit.plugins.depends.on.Module",
     ],
+    resource_jars = [":gr-depends-on-plugin"],
     resources = glob(["src/main/resources/**/*"]),
     deps = [
         ":auto-value",
         ":auto-value-annotations",
+    ],
+)
+
+gerrit_js_bundle(
+    name = "gr-depends-on-plugin",
+    srcs = glob(["gr-depends-on-plugin/*.js"]),
+    entry_point = "gr-depends-on-plugin/plugin.js",
+)
+
+eslint(
+    name = "lint",
+    srcs = glob(["gr-depends-on-plugin/**/*.js"]),
+    config = ".eslintrc.json",
+    data = [],
+    extensions = [
+        ".js",
+    ],
+    ignore = ".eslintignore",
+    plugins = [
+        "@npm//eslint-config-google",
+        "@npm//eslint-plugin-html",
+        "@npm//eslint-plugin-import",
+        "@npm//eslint-plugin-jsdoc",
     ],
 )
 

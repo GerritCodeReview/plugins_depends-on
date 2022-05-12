@@ -33,7 +33,9 @@ public class DependsOnCommentValidator implements CommentValidator {
         failures.add(
             c.failValidation(
                 "Depends-on tags as a patchset level comment are not"
-                    + " supported. See depends-on plugin documentation."));
+                    + " supported. See depends-on plugin documentation."
+                    + " Please use the Depends-on field under 'Change Info'"
+                    + " section to edit cross-project dependencies."));
       }
     }
     return failures.build();

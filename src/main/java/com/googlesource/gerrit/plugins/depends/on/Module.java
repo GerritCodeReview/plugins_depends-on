@@ -21,6 +21,8 @@ import com.google.gerrit.exceptions.StorageException;
 import com.google.gerrit.extensions.annotations.Exports;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.extensions.validators.CommentValidator;
+import com.google.gerrit.extensions.webui.JavaScriptPlugin;
+import com.google.gerrit.extensions.webui.WebUiPlugin;
 import com.google.gerrit.server.DynamicOptions.DynamicBean;
 import com.google.gerrit.server.change.ChangePluginDefinedInfoFactory;
 import com.google.gerrit.server.events.EventListener;
@@ -54,6 +56,8 @@ public class Module extends AbstractModule {
     bind(CommentValidator.class)
         .annotatedWith(Exports.named(DependsOnCommentValidator.class.getSimpleName()))
         .to(DependsOnCommentValidator.class);
+    DynamicSet.bind(binder(), WebUiPlugin.class)
+            .toInstance(new JavaScriptPlugin("gr-depends-on-plugin.js"));
   }
 
   public static class MyQueryOptions implements DependencyResolver {

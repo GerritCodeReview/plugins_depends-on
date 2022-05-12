@@ -2,14 +2,18 @@
 ========
 
 This plugin provides a way to mark a change dependent on other change(s). To
-mark a change dependent, post a change level comment with the list of dependencies
-under a change in the Gerrit page (not an inline diff comment or patchset level comment)
-in a single line with the format `Depends-on: c1 c2 c3 ....` where c1, c2 and c3
-are gerrit change numbers. Any number of changes can be provided after the
-`Depends-on:` tag. The `Depends-on:` tag is case-sensitive. Only changes listed
-in the most recent `Depends-on:` tag are considered as valid dependencies and
-older tags are ignored. To remove existing dependencies, a `Depends-on:` tag with
-no changes must be added.
+mark a change dependent, click on edit button in 'Depends-on' section in
+change info block and save dependencies with the format `c1 c2 c3 ....`
+where c1, c2 and c3 are gerrit change numbers. User can also post a change
+level comment with the list of dependencies under a change in the Gerrit page
+(not an inline diff comment or patchset level comment) in a single line with
+the format `Depends-on: c1 c2 c3 ....` where c1, c2 and c3 are gerrit change
+numbers. Any number of changes can be provided in the depends-on edit textbox
+and after the `Depends-on:` tag in comment section. The `Depends-on:` tag
+is case-sensitive. Only changes listed in the most recent `Depends-on:` tag
+are considered as valid dependencies and older tags are ignored. To remove
+existing dependencies, a `Depends-on:` tag with no changes must be added
+(or) save depends-on edit window with empty text.
 
 PROPAGATION
 -----------

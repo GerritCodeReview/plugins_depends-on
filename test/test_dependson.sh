@@ -189,7 +189,9 @@ result "depends-on change level comment - SSH"
 
 expected=$(cat <<EOF
 error: One or more comments were rejected in validation: Depends-on tags as a \
-patchset level comment are not supported. See depends-on plugin documentation.
+patchset level comment are not supported. See depends-on plugin documentation. \
+Please use the Depends-on field under 'Change Info' section to edit cross-project \
+dependencies.
 
 fatal: one or more reviews failed; review output above
 EOF
@@ -204,7 +206,9 @@ result "depends-on change level comment - REST"
 
 expected=$(cat <<EOF
 One or more comments were rejected in validation: Depends-on tags as a \
-patchset level comment are not supported. See depends-on plugin documentation.
+patchset level comment are not supported. See depends-on plugin documentation. \
+Please use the Depends-on field under 'Change Info' section to edit cross-project \
+dependencies.
 EOF
 )
 
