@@ -28,6 +28,7 @@ import com.google.gerrit.server.change.ChangePluginDefinedInfoFactory;
 import com.google.gerrit.server.events.EventListener;
 import com.google.gerrit.server.project.InvalidChangeOperationException;
 import com.google.gerrit.server.project.NoSuchChangeException;
+import com.google.gerrit.server.query.change.ChangeQueryBuilder.ChangeHasOperandFactory;
 import com.google.gerrit.server.query.change.ChangeQueryBuilder.ChangeOperatorFactory;
 import com.google.gerrit.server.restapi.change.GetChange;
 import com.google.gerrit.server.restapi.change.QueryChanges;
@@ -44,6 +45,9 @@ public class Module extends AbstractModule {
     bind(ChangeOperatorFactory.class)
         .annotatedWith(Exports.named(InDependsOnOperator.FIELD))
         .to(InDependsOnOperator.class);
+    bind(ChangeHasOperandFactory.class)
+        .annotatedWith(Exports.named(HasDependsOnOperator.FIELD))
+        .to(HasDependsOnOperator.class);
     DynamicSet.bind(binder(), EventListener.class).to(CoreListener.class);
     bind(ChangePluginDefinedInfoFactory.class)
         .annotatedWith(Exports.named("depends-ons"))
@@ -57,7 +61,7 @@ public class Module extends AbstractModule {
         .annotatedWith(Exports.named(DependsOnCommentValidator.class.getSimpleName()))
         .to(DependsOnCommentValidator.class);
     DynamicSet.bind(binder(), WebUiPlugin.class)
-            .toInstance(new JavaScriptPlugin("gr-depends-on-plugin.js"));
+        .toInstance(new JavaScriptPlugin("gr-depends-on-plugin.js"));
   }
 
   public static class MyQueryOptions implements DependencyResolver {

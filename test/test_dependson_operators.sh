@@ -120,13 +120,29 @@ REPO_DIR="$TEST_DIR/"repo
 q git init "$REPO_DIR"
 FILE_A="$REPO_DIR"/fileA
 
-# ------------------------- Depends-on Test ---------------------------
+# ------------------------- independson:<change-num> Tests ---------------------------
 DEPENDENT_CHANGE=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || \
     die "Failed to create change on project: $PROJECT branch: $SRC_REF_BRANCH"
 CHANGE=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || \
     die "Failed to create change on project: $PROJECT branch: $SRC_REF_BRANCH"
 gssh gerrit review --message \'"Depends-on: $DEPENDENT_CHANGE"\' "$CHANGE",1
-EXPECTED=$DEPENDENT_CHANGE
 ACTUAL="$(query "independson:$CHANGE" | jq --raw-output '.number')"
-result_out "independson operator" "$EXPECTED" "$ACTUAL"
+result_out "independson operator" "$DEPENDENT_CHANGE" "$ACTUAL"
+
+# ------------------------- has:a_depends-on Tests ---------------------------
+CHANGE_1=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || \
+    die "Failed to create change on project: $PROJECT branch: $SRC_REF_BRANCH"
+ACTUAL="$(query "change:$CHANGE_1 has:a_depends-on" | jq --raw-output '.number')"
+result_out "has:a_depends-on operator (no Depends-On)" "null" "$ACTUAL"
+
+CHANGE_2=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || \
+    die "Failed to create change on project: $PROJECT branch: $SRC_REF_BRANCH"
+gssh gerrit review --message \'"Depends-on: $CHANGE_1"\' "$CHANGE_2",1
+ACTUAL="$(query "change:$CHANGE_2 has:a_depends-on" | jq --raw-output '.number')"
+result_out "has:a_depends-on operator (non-empty Depends-on)" "$CHANGE_2" "$ACTUAL"
+
+gssh gerrit review --message \'"Depends-on:"\' "$CHANGE_2",1
+ACTUAL="$(query "change:$CHANGE_2 has:a_depends-on" | jq --raw-output '.number')"
+result_out "has:a_depends-on operator (empty Depends-On)" "null" "$ACTUAL"
+
 exit $RESULT
