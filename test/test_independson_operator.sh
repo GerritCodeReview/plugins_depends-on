@@ -126,7 +126,7 @@ DEPENDENT_CHANGE=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || \
 CHANGE=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || \
     die "Failed to create change on project: $PROJECT branch: $SRC_REF_BRANCH"
 gssh gerrit review --message \'"Depends-on: $DEPENDENT_CHANGE"\' "$CHANGE",1
-EXPECTED="$(query "$DEPENDENT_CHANGE" | jq --raw-output '.number')"
+EXPECTED=$DEPENDENT_CHANGE
 ACTUAL="$(query "independson:$CHANGE" | jq --raw-output '.number')"
 result_out "independson operator" "$EXPECTED" "$ACTUAL"
 exit $RESULT
