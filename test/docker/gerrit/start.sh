@@ -3,6 +3,8 @@
 git config -f "$GERRIT_SITE/etc/gerrit.config" \
     operator-alias.change.independson "in_depends-on"
 git config -f "$GERRIT_SITE/etc/gerrit.config" \
+    operator-alias.change.hasdependson "has_depends-on"
+git config -f "$GERRIT_SITE/etc/gerrit.config" \
     sendemail.enable "false"
 
 echo "Initializing Gerrit site ..."

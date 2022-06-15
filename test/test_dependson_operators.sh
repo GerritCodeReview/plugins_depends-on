@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 
-# This test relies on change operator aliasing for "in_depends-on" operator
-# since query parser is not able to parse dash(-) in depends-on
-# operator.
-# This test assumes that change operator aliasing for "in_depends-on" operator
-# is configured as follows :
+# This test relies on change operator aliasing since query parser
+# cannot parse hyphens(-) in field names. Following alias have to be
+# configured:
 #
 #  [operator-alias "change"]
 #      independson = in_depends-on
+#      hasdependson = has_depends-on
 
 # run a gerrit ssh command
 gssh() { ssh -x -p "$PORT" "$SERVER" "$@" ; 2>&1 ; } # [args]...
@@ -144,5 +143,14 @@ result_out "has:a_depends-on operator (non-empty Depends-on)" "$CHANGE_2" "$ACTU
 gssh gerrit review --message \'"Depends-on:"\' "$CHANGE_2",1
 ACTUAL="$(query "change:$CHANGE_2 has:a_depends-on" | jq --raw-output '.number')"
 result_out "has:a_depends-on operator (empty Depends-On)" "null" "$ACTUAL"
+
+# ------------------------- hasdependson:<query> Tests ---------------------------
+CHANGE_1=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || \
+    die "Failed to create change on project: $PROJECT branch: $SRC_REF_BRANCH"
+CHANGE_2=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || \
+    die "Failed to create change on project: $PROJECT branch: $SRC_REF_BRANCH"
+gssh gerrit review --message \'"Depends-on: $CHANGE_1"\' "$CHANGE_2",1
+ACTUAL="$(query "change:$CHANGE_2 hasdependson:\"change:$CHANGE_1\"" | jq --raw-output '.number')"
+result_out "hasdependson operator" "$CHANGE_2" "$ACTUAL"
 
 exit $RESULT

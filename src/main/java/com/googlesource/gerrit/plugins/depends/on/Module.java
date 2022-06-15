@@ -45,6 +45,9 @@ public class Module extends AbstractModule {
     bind(ChangeOperatorFactory.class)
         .annotatedWith(Exports.named(InDependsOnOperator.FIELD))
         .to(InDependsOnOperator.class);
+    bind(ChangeOperatorFactory.class)
+        .annotatedWith(Exports.named(DependsOnOperator.FIELD))
+        .to(DependsOnOperator.class);
     bind(ChangeHasOperandFactory.class)
         .annotatedWith(Exports.named(HasDependsOnOperator.FIELD))
         .to(HasDependsOnOperator.class);
