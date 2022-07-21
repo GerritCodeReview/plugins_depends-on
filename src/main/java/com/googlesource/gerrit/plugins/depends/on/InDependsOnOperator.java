@@ -44,6 +44,7 @@ public class InDependsOnOperator implements ChangeOperatorFactory {
       dependentChanges =
           changeId.isPresent()
               ? changeMessageStore.load(changeId.get()).stream()
+                  .filter(DependsOn::isResolved)
                   .map(d -> d.id())
                   .collect(Collectors.toSet())
               : Collections.emptySet();
