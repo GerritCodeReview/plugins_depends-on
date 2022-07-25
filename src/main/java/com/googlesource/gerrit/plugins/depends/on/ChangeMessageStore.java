@@ -31,6 +31,7 @@ import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.patch.PatchListNotAvailableException;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.project.InvalidChangeOperationException;
+import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gerrit.server.restapi.change.PostReview;
 import com.google.gerrit.server.update.UpdateException;
 import com.google.inject.Inject;
@@ -89,7 +90,12 @@ public class ChangeMessageStore implements DependencyResolver {
   }
 
   public List<DependsOn> loadWithOrder(Change.Id cid) throws StorageException {
-    ChangeNotes changeNote = changeNotesFactory.createCheckedUsingIndexLookup(cid);
+    ChangeNotes changeNote;
+    try {
+      changeNote = changeNotesFactory.createCheckedUsingIndexLookup(cid);
+    } catch (NoSuchChangeException e) {
+      return Collections.emptyList();
+    }
     for (ChangeMessage message : Lists.reverse(cmUtil.byChange(changeNote))) {
       Optional<List<DependsOn>> deps = Comment.from(message.getMessage());
       if (deps.isPresent()) {

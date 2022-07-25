@@ -128,6 +128,9 @@ gssh gerrit review --message \'"Depends-on: $DEPENDENT_CHANGE"\' "$CHANGE",1
 ACTUAL="$(query "independson:$CHANGE" | jq --raw-output '.number')"
 result_out "independson operator" "$DEPENDENT_CHANGE" "$ACTUAL"
 
+ACTUAL="$(query "independson:99999" | jq --raw-output '.number')"
+result_out "independson operator (non-existent change)" "null" "$ACTUAL"
+
 # ------------------------- has:a_depends-on Tests ---------------------------
 CHANGE_1=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || \
     die "Failed to create change on project: $PROJECT branch: $SRC_REF_BRANCH"

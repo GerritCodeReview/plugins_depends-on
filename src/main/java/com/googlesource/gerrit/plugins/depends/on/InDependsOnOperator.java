@@ -24,6 +24,8 @@ import com.google.gerrit.server.query.change.ChangeQueryBuilder;
 import com.google.gerrit.server.query.change.ChangeQueryBuilder.ChangeOperatorFactory;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import java.util.Collections;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
@@ -38,10 +40,13 @@ public class InDependsOnOperator implements ChangeOperatorFactory {
 
     public InDependsOnPredicate(String value) {
       super(InDependsOnOperator.FIELD, value);
+      Optional<Change.Id> changeId = Change.Id.tryParse(value);
       dependentChanges =
-          changeMessageStore.load(Change.Id.tryParse(value).get()).stream()
-              .map(d -> d.id())
-              .collect(Collectors.toSet());
+          changeId.isPresent()
+              ? changeMessageStore.load(changeId.get()).stream()
+                  .map(d -> d.id())
+                  .collect(Collectors.toSet())
+              : Collections.emptySet();
     }
 
     @Override
