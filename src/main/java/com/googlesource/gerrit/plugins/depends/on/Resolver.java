@@ -20,6 +20,7 @@ import com.google.gerrit.server.query.change.InternalChangeQuery;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Resolver {
@@ -41,12 +42,12 @@ public class Resolver {
   }
 
   protected Set<DependsOn> resolve(Set<DependsOn> deps, Set<Set<BranchNameKey>> deliverables) {
-    /* ToDo: optimize and query all changes with a given Key up front */
     Set<DependsOn> current = new HashSet<>();
     for (DependsOn dep : deps) {
       if (dep.id() == null) {
+        List<ChangeData> changes = queryProvider.get().byKey(dep.key());
         for (Set<BranchNameKey> deliverable : deliverables) {
-          Set<DependsOn> resolved = resolve(dep, deliverable);
+          Set<DependsOn> resolved = resolve(changes, deliverable);
           if (resolved.isEmpty()) {
             current.add(dep);
           } else {
@@ -60,13 +61,13 @@ public class Resolver {
     return current;
   }
 
-  protected Set<DependsOn> resolve(DependsOn dep, Set<BranchNameKey> deliverable) {
+  protected Set<DependsOn> resolve(List<ChangeData> changes, Set<BranchNameKey> deliverable) {
     Set<DependsOn> found = new HashSet<>();
-    // Although we expect at most one change for each deliverable,
-    // it is possible that someone re-used a change id across different projects,
-    // therefore return all changes and let the caller decide what to do with them.
-    for (BranchNameKey branch : deliverable) {
-      for (ChangeData change : queryProvider.get().byBranchKey(branch, dep.key())) {
+    for (ChangeData change : changes) {
+      // Although we expect at most one change for each deliverable, it is possible that someone
+      // re-used a change id across different projects, therefore consider all changes in the
+      // deliverable.
+      if (deliverable.contains(change.change().getDest())) {
         found.add(DependsOn.create(String.valueOf(change.getId())));
       }
     }
