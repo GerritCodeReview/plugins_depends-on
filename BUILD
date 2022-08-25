@@ -91,6 +91,7 @@ eslint(
 
 junit_tests(
     name = "depends-on_tests",
+    size = "small",
     srcs = glob(["src/test/java/**/*Test.java"]),
     tags = [plugin_name],
     deps = [":depends-on__plugin_test_deps"],
