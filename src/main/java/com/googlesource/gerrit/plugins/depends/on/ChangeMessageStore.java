@@ -28,23 +28,20 @@ import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.change.ChangeResource;
 import com.google.gerrit.server.change.RevisionResource;
 import com.google.gerrit.server.notedb.ChangeNotes;
-import com.google.gerrit.server.patch.PatchListNotAvailableException;
-import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.project.InvalidChangeOperationException;
 import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gerrit.server.restapi.change.PostReview;
+import com.google.gerrit.server.update.RetryHelper;
 import com.google.gerrit.server.update.UpdateException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.depends.on.extensions.DependencyResolver;
 import com.googlesource.gerrit.plugins.depends.on.formats.Comment;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,6 +58,7 @@ public class ChangeMessageStore implements DependencyResolver {
   protected final Resolver resolver;
   protected final ChangeNotes.Factory changeNotesFactory;
   protected final ChangeMessagesUtil cmUtil;
+  protected final RetryHelper retryHelper;
 
   @Inject
   public ChangeMessageStore(
@@ -69,13 +67,15 @@ public class ChangeMessageStore implements DependencyResolver {
       CurrentUser currentUser,
       Resolver resolver,
       ChangeNotes.Factory changeNotesFactory,
-      ChangeMessagesUtil cmUtil) {
+      ChangeMessagesUtil cmUtil,
+      RetryHelper retryHelper) {
     this.reviewProvider = reviewProvider;
     this.changeResourceFactory = changeResourceFactory;
     this.currentUser = currentUser;
     this.resolver = resolver;
     this.changeNotesFactory = changeNotesFactory;
     this.cmUtil = cmUtil;
+    this.retryHelper = retryHelper;
   }
 
   /**
@@ -143,13 +143,15 @@ public class ChangeMessageStore implements DependencyResolver {
     ChangeResource changeResource = changeResourceFactory.create(changeNotes, currentUser);
     PatchSet patchSet = changeNotes.load().getPatchSets().get(patchSetId);
     try {
-      reviewProvider.get().apply(new RevisionResource(changeResource, patchSet), review);
-    } catch (RestApiException
-        | UpdateException
-        | IOException
-        | PermissionBackendException
-        | ConfigInvalidException
-        | PatchListNotAvailableException e) {
+      retryHelper
+          .changeUpdate(
+              "changeUpdate",
+              updateFactory ->
+                  reviewProvider
+                      .get()
+                      .apply(new RevisionResource(changeResource, patchSet), review))
+          .call();
+    } catch (RestApiException | UpdateException e) {
       log.error("Unable to post auto-copied review comment", e);
     }
   }
