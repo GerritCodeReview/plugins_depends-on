@@ -35,7 +35,10 @@ Usage:
 
     Options:
     --help|-h
-    --gerrit-war|-g                 path to Gerrit WAR file
+    --gerrit-war|-g                 path to Gerrit WAR file. Will likely not
+                                    function correctly if it's a different
+                                    MAJOR.MINOR version than the image version
+                                    in test/docker/gerrit/Dockerfile.
     --depends-on-plugin-jar|-e      path to depends-on plugin JAR file
 
 EOF
