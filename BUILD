@@ -55,8 +55,6 @@ gerrit_plugin(
         "Implementation-Title: Depends-on Plugin",
         "Implementation-URL: https://gerrit-review.googlesource.com/#/admin/projects/plugins/" + plugin_name,
         "Gerrit-Module: com.googlesource.gerrit.plugins.depends.on.Module",
-        "Gerrit-SshModule: com.googlesource.gerrit.plugins.depends.on.SshModule",
-        "Gerrit-HttpModule: com.googlesource.gerrit.plugins.depends.on.HttpModule",
     ],
     resources = glob(["src/main/resources/**/*"]),
     deps = [

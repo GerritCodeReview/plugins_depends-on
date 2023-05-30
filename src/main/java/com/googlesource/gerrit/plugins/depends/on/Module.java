@@ -14,13 +14,25 @@
 
 package com.googlesource.gerrit.plugins.depends.on;
 
+import com.google.gerrit.extensions.annotations.Exports;
 import com.google.gerrit.extensions.registration.DynamicSet;
+import com.google.gerrit.server.DynamicOptions.DynamicBean;
 import com.google.gerrit.server.events.EventListener;
+import com.google.gerrit.server.restapi.change.GetChange;
+import com.google.gerrit.server.restapi.change.QueryChanges;
+import com.google.gerrit.sshd.commands.Query;
 import com.google.inject.AbstractModule;
 
 public class Module extends AbstractModule {
   @Override
   protected void configure() {
     DynamicSet.bind(binder(), EventListener.class).to(CoreListener.class);
+    bind(DynamicBean.class)
+        .annotatedWith(Exports.named(GetChange.class))
+        .to(ChangeMessageStore.class);
+    bind(DynamicBean.class).annotatedWith(Exports.named(Query.class)).to(ChangeMessageStore.class);
+    bind(DynamicBean.class)
+        .annotatedWith(Exports.named(QueryChanges.class))
+        .to(ChangeMessageStore.class);
   }
 }
