@@ -88,8 +88,7 @@ if [ ! -e "$ARTIFACTS/depends-on.jar" ] ; then
     usage "$MISSING, did you forget --depends-on-plugin-jar?"
 fi
 [ -n "$GERRIT_WAR" ] && cp -f "$GERRIT_WAR" "$ARTIFACTS/gerrit.war"
-progress "Building docker images" build_images
-run_depends_on_plugin_tests ; RESULT=$?
-cleanup
-
-exit "$RESULT"
+( trap cleanup EXIT SIGTERM
+    progress "Building docker images" build_images
+    run_depends_on_plugin_tests
+)
