@@ -3,6 +3,7 @@
 readlink --canonicalize / &> /dev/null || readlink() { greadlink "$@" ; } # for MacOS
 MYDIR=$(dirname -- "$(readlink -f -- "$0")")
 ARTIFACTS=$MYDIR/gerrit/artifacts
+BAZEL_BUILT_JAR=$MYDIR/../../bazel-bin/depends-on.jar
 
 die() { echo -e "\nERROR: $@" ; kill $$ ; exit 1 ; } # error_message
 
@@ -28,18 +29,15 @@ Usage:
     This tool runs the plugin functional tests in a Docker environment built
     from the gerritcodereview/gerrit base Docker image.
 
-    The depends-on plugin JAR and optionally a Gerrit WAR are expected to be in the
-    $ARTIFACTS dir;
-    however, the --depends-on-plugin-jar and --gerrit-war switches may be used as
-    helpers to specify which files to copy there.
-
     Options:
     --help|-h
-    --gerrit-war|-g                 path to Gerrit WAR file. Will likely not
-                                    function correctly if it's a different
-                                    MAJOR.MINOR version than the image version
-                                    in test/docker/gerrit/Dockerfile.
-    --depends-on-plugin-jar|-e      path to depends-on plugin JAR file
+    --gerrit-war|-g                 optional path to Gerrit WAR file. Will
+                                    likely not function correctly if it's a
+                                    different MAJOR.MINOR version than the
+                                    default version in
+                                    test/docker/gerrit/Dockerfile.
+    --depends-on-plugin-jar|-e      optional path to depends-on plugin JAR file.
+                                    Defaults to $BAZEL_BUILT_JAR
 
 EOF
 
@@ -64,6 +62,7 @@ run_depends_on_plugin_tests() {
 
 cleanup() {
     docker-compose "${COMPOSE_ARGS[@]}" down -v --rmi local 2>/dev/null
+    rm -rf "$ARTIFACTS"
 }
 
 while (( "$#" )); do
@@ -81,11 +80,12 @@ COMPOSE_YAML="$MYDIR/docker-compose.yaml"
 COMPOSE_ARGS=(--project-name "$PROJECT_NAME" -f "$COMPOSE_YAML")
 check_prerequisite
 mkdir -p -- "$ARTIFACTS"
-[ -n "$DEPENDS_ON_PLUGIN_JAR" ] && cp -f "$DEPENDS_ON_PLUGIN_JAR" "$ARTIFACTS/depends-on.jar"
-if [ ! -e "$ARTIFACTS/depends-on.jar" ] ; then
-    MISSING="Missing $ARTIFACTS/depends-on.jar"
-    [ -n "$DEPENDS_ON_PLUGIN_JAR" ] && die "$MISSING, check for copy failure?"
-    usage "$MISSING, did you forget --depends-on-plugin-jar?"
+if [ -n "$DEPENDS_ON_PLUGIN_JAR" ] ; then
+    cp -f "$DEPENDS_ON_PLUGIN_JAR" "$ARTIFACTS/depends-on.jar"
+elif [ -e "$BAZEL_BUILT_JAR" ] ; then
+    cp -f "$BAZEL_BUILT_JAR" "$ARTIFACTS/depends-on.jar"
+else
+    usage "Cannot find plugin jar, did you forget --depends-on-plugin-jar?"
 fi
 [ -n "$GERRIT_WAR" ] && cp -f "$GERRIT_WAR" "$ARTIFACTS/gerrit.war"
 ( trap cleanup EXIT SIGTERM
