@@ -171,7 +171,7 @@ q git init "$REPO_DIR"
 GIT_DIR=$REPO_DIR/.git
 FILE_A=$REPO_DIR/fileA
 
-# ------------------------- Depends-on Test ---------------------------
+# ------------------------- Depends-on propagation Test ---------------------------
 base_change=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || exit
 src_change=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || exit
 gssh gerrit review --message \'"Depends-on: $base_change"\' "$src_change",1
@@ -179,7 +179,6 @@ dest_change=$(cherry_pick_change "$src_change" "$DEST_REF")
 expected="Depends-on: $(query "$base_change" | jq --raw-output '.id')"
 actual=$(get_depends_on_tag "$dest_change")
 result_out "propagate depends-on" "$expected" "$actual"
-
 
 # ------------------------- Depends-on comment validator test ---------------------------
 change=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || exit
@@ -212,5 +211,20 @@ EOF
 out=$(review_change "$change" "$commit" \
         '{"comments": {"/PATCHSET_LEVEL":[{"message": "Depends-on: 10 30"}]}}')
 result_out "depends-on patchset level comment - REST" "$expected" "$out"
+
+# ------------------------- Depends-on query Test ---------------------------
+change=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || exit
+gssh gerrit review --message \
+    \'"Depends-on: 10 30 Ieace383c14de79bf202c85063d5a46a0580724dd 20"\' "$change",1
+out=$(query "$change" --depends-on--all | jq --raw-output '.plugins[0].dependsOns')
+result "depends-on query"
+result_out "depends-on query output 1" "10" "$(echo "$out" | jq '.[0].changeNumber')"
+result_out "depends-on query output 2" "30" "$(echo "$out" | jq '.[1].changeNumber')"
+result_out "depends-on query output 3" "Ieace383c14de79bf202c85063d5a46a0580724dd" \
+    "$(echo "$out" | jq --raw-output '.[2].unresolved')"
+result_out "depends-on query output 4" "20" "$(echo "$out" | jq '.[3].changeNumber')"
+result_out "depends-on query output datatype" "number number string number" \
+    "$(echo "$out" | jq --raw-output 'map(select(.changeNumber!=null).changeNumber,
+        select(.unresolved!=null).unresolved | type) | join(" ")')"
 
 exit $RESULT

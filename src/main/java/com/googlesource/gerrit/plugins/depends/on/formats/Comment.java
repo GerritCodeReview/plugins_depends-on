@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.depends.on.formats;
 
 import com.googlesource.gerrit.plugins.depends.on.DependsOn;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -30,7 +31,7 @@ public class Comment {
   protected static final Pattern DEPENDS_ON_PATTERN = Pattern.compile("^Depends-on:(.*)$");
 
   /** return empty Optional instance means no dependencies found */
-  public static Optional<Set<DependsOn>> from(String comment) {
+  public static Optional<List<DependsOn>> from(String comment) {
     for (String line : comment.split("\n", -1)) {
       Matcher match = DEPENDS_ON_PATTERN.matcher(line);
       if (match.find()) {
@@ -41,7 +42,7 @@ public class Comment {
             Arrays.stream(changes.split("\\s+", -1)) // -> ["1234", "4444"]
                 .filter(c -> !c.isEmpty())
                 .map(c -> DependsOn.create(c))
-                .collect(Collectors.toSet()));
+                .collect(Collectors.toList()));
       }
     }
     return Optional.empty();

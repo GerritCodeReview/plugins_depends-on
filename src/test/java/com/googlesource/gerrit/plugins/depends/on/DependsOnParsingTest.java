@@ -16,8 +16,8 @@ package com.googlesource.gerrit.plugins.depends.on;
 
 import com.google.gerrit.testing.InMemoryModule;
 import com.googlesource.gerrit.plugins.depends.on.formats.Comment;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import junit.framework.TestCase;
 import org.junit.Test;
 
@@ -68,21 +68,21 @@ public class DependsOnParsingTest extends TestCase {
   @Test
   public void testParseNoneComment() {
     String comment = "My Very Educated Mother Just Served Us Nothing!";
-    Optional<Set<DependsOn>> deps = Comment.from(comment);
+    Optional<List<DependsOn>> deps = Comment.from(comment);
     assertFalse(deps.isPresent());
   }
 
   @Test
   public void testParseEmptyComment() {
     String comment = "Depends-on:";
-    Optional<Set<DependsOn>> deps = Comment.from(comment);
+    Optional<List<DependsOn>> deps = Comment.from(comment);
     assertTrue(deps.get().size() == 0);
   }
 
   @Test
   public void testParseOneNumComment() {
     String comment = "Depends-on:" + NUM;
-    Optional<Set<DependsOn>> deps = Comment.from(comment);
+    Optional<List<DependsOn>> deps = Comment.from(comment);
     for (DependsOn dep : deps.get()) {
       assertTrue(NUM.equals("" + dep.id().get()));
       return;
@@ -93,7 +93,7 @@ public class DependsOnParsingTest extends TestCase {
   @Test
   public void testParseOneKeyComment() {
     String comment = "Depends-on:" + KEY;
-    Optional<Set<DependsOn>> deps = Comment.from(comment);
+    Optional<List<DependsOn>> deps = Comment.from(comment);
     for (DependsOn dep : deps.get()) {
       assertTrue(KEY.equals("" + dep.key().get()));
       return;
@@ -104,7 +104,7 @@ public class DependsOnParsingTest extends TestCase {
   @Test
   public void testParseTwoNumsComment() {
     String comment = "Depends-on:" + NUM + " " + NUM2;
-    Optional<Set<DependsOn>> deps = Comment.from(comment);
+    Optional<List<DependsOn>> deps = Comment.from(comment);
     assertTrue(deps.get().size() == 2);
     int found = 0;
     for (DependsOn dep : deps.get()) {
@@ -117,7 +117,7 @@ public class DependsOnParsingTest extends TestCase {
   @Test
   public void testParseTwoKeyComments() {
     String comment = "Depends-on:" + KEY + " " + KEY2;
-    Optional<Set<DependsOn>> deps = Comment.from(comment);
+    Optional<List<DependsOn>> deps = Comment.from(comment);
     assertTrue(deps.get().size() == 2);
     int found = 0;
     for (DependsOn dep : deps.get()) {
@@ -130,7 +130,7 @@ public class DependsOnParsingTest extends TestCase {
   @Test
   public void testParseNumAndKeyComment() {
     String comment = "Depends-on:" + NUM + " " + KEY;
-    Optional<Set<DependsOn>> deps = Comment.from(comment);
+    Optional<List<DependsOn>> deps = Comment.from(comment);
     assertTrue(deps.get().size() == 2);
     int found = 0;
     for (DependsOn dep : deps.get()) {
@@ -146,7 +146,7 @@ public class DependsOnParsingTest extends TestCase {
 
   public void testParseTwoNumsCommaComment() {
     String comment = "Depends-on:" + NUM + "," + NUM2;
-    Optional<Set<DependsOn>> deps = Comment.from(comment);
+    Optional<List<DependsOn>> deps = Comment.from(comment);
     assertTrue(deps.get().size() == 2);
     int found = 0;
     for (DependsOn dep : deps.get()) {
@@ -158,7 +158,7 @@ public class DependsOnParsingTest extends TestCase {
 
   public void testParseTwoNumsCommaSpaceComment() {
     String comment = "Depends-on:" + NUM + ", " + NUM2;
-    Optional<Set<DependsOn>> deps = Comment.from(comment);
+    Optional<List<DependsOn>> deps = Comment.from(comment);
     assertTrue(deps.get().size() == 2);
     int found = 0;
     for (DependsOn dep : deps.get()) {
@@ -170,7 +170,7 @@ public class DependsOnParsingTest extends TestCase {
 
   public void testParseTwoNumsWhiteComment() {
     String comment = "Depends-on:" + NUM + ", \t" + NUM2;
-    Optional<Set<DependsOn>> deps = Comment.from(comment);
+    Optional<List<DependsOn>> deps = Comment.from(comment);
     assertTrue(deps.get().size() == 2);
     int found = 0;
     for (DependsOn dep : deps.get()) {
@@ -183,7 +183,7 @@ public class DependsOnParsingTest extends TestCase {
   public void testParseTwoNumsNewLineWhiteComment() {
     // Should stop processing at newline
     String comment = "Depends-on:" + NUM + ", \t\n" + NUM2;
-    Optional<Set<DependsOn>> deps = Comment.from(comment);
+    Optional<List<DependsOn>> deps = Comment.from(comment);
     assertTrue(deps.get().size() == 1);
     for (DependsOn dep : deps.get()) {
       assertTrue(NUM.equals("" + dep.id().get()));
@@ -192,7 +192,7 @@ public class DependsOnParsingTest extends TestCase {
 
   public void testParseEmbeddedComment() {
     String comment = "Patch Set 2:\n\nDepends-on:" + NUM + " " + NUM2 + "\nHey\n";
-    Optional<Set<DependsOn>> deps = Comment.from(comment);
+    Optional<List<DependsOn>> deps = Comment.from(comment);
     assertTrue(deps.get().size() == 2);
     int found = 0;
     for (DependsOn dep : deps.get()) {

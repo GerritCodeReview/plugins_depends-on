@@ -85,7 +85,11 @@ public class ChangeMessageStore implements DependencyResolver {
    *
    * <p>return empty set means no dependencies found.
    */
-  public Set<DependsOn> load(Change.Id cid) {
+  public Set<DependsOn> load(Change.Id cid) throws StorageException {
+    return loadWithOrder(cid).stream().collect(Collectors.toSet());
+  }
+
+  public List<DependsOn> loadWithOrder(Change.Id cid) throws StorageException {
     ChangeNotes changeNote = changeNotesFactory.createCheckedUsingIndexLookup(cid);
     List<ChangeMessage> messages = cmUtil.byChange(changeNote);
     List<ChangeMessage> sortedChangeMessages =
@@ -93,12 +97,12 @@ public class ChangeMessageStore implements DependencyResolver {
             .sorted(Comparator.comparing(ChangeMessage::getWrittenOn).reversed())
             .collect(Collectors.toCollection(ArrayList::new));
     for (ChangeMessage message : sortedChangeMessages) {
-      Optional<Set<DependsOn>> deps = Comment.from(message.getMessage());
+      Optional<List<DependsOn>> deps = Comment.from(message.getMessage());
       if (deps.isPresent()) {
         return deps.get();
       }
     }
-    return Collections.emptySet();
+    return Collections.emptyList();
   }
 
   /** If needed, create a comment on the change with a DependsOn for the dependencies. */
