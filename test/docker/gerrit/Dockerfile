@@ -6,6 +6,8 @@ COPY artifacts/plugins/ $GERRIT_SITE/plugins/
 USER root
 
 COPY artifacts/bin/ /tmp/
+COPY start.sh /
 RUN { [ -e /tmp/gerrit.war ] && cp /tmp/gerrit.war "$GERRIT_SITE/bin/gerrit.war" ; } || true
 
 USER gerrit
+ENTRYPOINT /start.sh

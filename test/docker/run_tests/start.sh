@@ -36,4 +36,4 @@ login $USER
 password $HTTP_PASSWD
 EOT
 
-./test_dependson.sh --server "$GERRIT_HOST" --project "$TEST_PROJECT"
+./test_plugin.sh --server "$GERRIT_HOST" --project "$TEST_PROJECT"
