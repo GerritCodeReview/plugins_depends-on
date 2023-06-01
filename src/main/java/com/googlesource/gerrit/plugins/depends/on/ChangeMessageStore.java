@@ -15,6 +15,7 @@
 package com.googlesource.gerrit.plugins.depends.on;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 import com.google.gerrit.entities.BranchNameKey;
 import com.google.gerrit.entities.Change;
 import com.google.gerrit.entities.ChangeMessage;
@@ -37,9 +38,7 @@ import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.depends.on.extensions.DependencyResolver;
 import com.googlesource.gerrit.plugins.depends.on.formats.Comment;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -91,12 +90,7 @@ public class ChangeMessageStore implements DependencyResolver {
 
   public List<DependsOn> loadWithOrder(Change.Id cid) throws StorageException {
     ChangeNotes changeNote = changeNotesFactory.createCheckedUsingIndexLookup(cid);
-    List<ChangeMessage> messages = cmUtil.byChange(changeNote);
-    List<ChangeMessage> sortedChangeMessages =
-        messages.stream()
-            .sorted(Comparator.comparing(ChangeMessage::getWrittenOn).reversed())
-            .collect(Collectors.toCollection(ArrayList::new));
-    for (ChangeMessage message : sortedChangeMessages) {
+    for (ChangeMessage message : Lists.reverse(cmUtil.byChange(changeNote))) {
       Optional<List<DependsOn>> deps = Comment.from(message.getMessage());
       if (deps.isPresent()) {
         return deps.get();
