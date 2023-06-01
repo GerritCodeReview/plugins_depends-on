@@ -51,6 +51,13 @@ cherry_pick_change() { # change_num dest_branch > changenum
         tail -n +2 | jq --raw-output '._number'
 }
 
+review_change() { # change commit_sha input_json [args...] > API_response
+  local change=$1 commit_sha=$2 data=$3 ; shift 3
+  curl -X POST --netrc --silent --header 'Content-Type: application/json' \
+      "$@" --data "$data" \
+      "http://$SERVER:8080/a/changes/$change/revisions/$commit_sha/review"
+}
+
 create_change() { # branch file [commit_message] > changenum
     local branch=$1 tmpfile=$2 msg=$3 out rtn
     local content=$RANDOM dest=refs/for/$branch
@@ -172,5 +179,38 @@ dest_change=$(cherry_pick_change "$src_change" "$DEST_REF")
 expected="Depends-on: $(query "$base_change" | jq --raw-output '.id')"
 actual=$(get_depends_on_tag "$dest_change")
 result_out "propagate depends-on" "$expected" "$actual"
+
+
+# ------------------------- Depends-on comment validator test ---------------------------
+change=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || exit
+commit=$(mygit log -1 --pretty=format:"%H")
+gssh gerrit review --message \
+    \'"Depends-on: 10 30 Ieace383c14de79bf202c85063d5a46a0580724dd 20"\' "$change",1
+result "depends-on change level comment - SSH"
+
+expected=$(cat <<EOF
+error: One or more comments were rejected in validation: Depends-on tags as a \
+patchset level comment are not supported. See depends-on plugin documentation.
+
+fatal: one or more reviews failed; review output above
+EOF
+)
+
+out=$(echo '{"comments": {"/PATCHSET_LEVEL":[{"message": "Depends-on: 10 30"}]}}' | \
+        gssh gerrit review --json "$change",1 2>&1)
+result_out "depends-on patchset level comment - SSH" "$expected" "$out"
+
+review_change "$change" "$commit" '{"message" : "Depends-on: 10 30"}' "--fail" > /dev/null 2>&1
+result "depends-on change level comment - REST"
+
+expected=$(cat <<EOF
+One or more comments were rejected in validation: Depends-on tags as a \
+patchset level comment are not supported. See depends-on plugin documentation.
+EOF
+)
+
+out=$(review_change "$change" "$commit" \
+        '{"comments": {"/PATCHSET_LEVEL":[{"message": "Depends-on: 10 30"}]}}')
+result_out "depends-on patchset level comment - REST" "$expected" "$out"
 
 exit $RESULT

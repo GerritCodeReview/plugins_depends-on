@@ -47,6 +47,15 @@ public class Comment {
     return Optional.empty();
   }
 
+  public static boolean hasDependsOn(String comment) {
+    for (String line : comment.split("\n", -1)) {
+      if (DEPENDS_ON_PATTERN.matcher(line).find()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public static StringBuilder getMessages(Set<DependsOn> dependsons) {
     StringBuilder dependencies = new StringBuilder("Depends-on:");
     for (DependsOn dep : dependsons) {

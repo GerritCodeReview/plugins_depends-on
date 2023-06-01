@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.depends.on;
 
 import com.google.gerrit.extensions.annotations.Exports;
 import com.google.gerrit.extensions.registration.DynamicSet;
+import com.google.gerrit.extensions.validators.CommentValidator;
 import com.google.gerrit.server.DynamicOptions.DynamicBean;
 import com.google.gerrit.server.events.EventListener;
 import com.google.gerrit.server.query.change.ChangeQueryBuilder.ChangeOperatorFactory;
@@ -38,5 +39,8 @@ public class Module extends AbstractModule {
     bind(DynamicBean.class)
         .annotatedWith(Exports.named(QueryChanges.class))
         .to(ChangeMessageStore.class);
+    bind(CommentValidator.class)
+        .annotatedWith(Exports.named(DependsOnCommentValidator.class.getSimpleName()))
+        .to(DependsOnCommentValidator.class);
   }
 }
