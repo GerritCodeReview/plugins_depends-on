@@ -18,7 +18,7 @@
 export const htmlTemplate = Polymer.html`
   <style>
     a {
-      color: #0654ac;
+      color: var(--link-color);
     }
     .depends_on_block {
       padding-bottom: var(--spacing-m);

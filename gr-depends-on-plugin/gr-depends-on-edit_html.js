@@ -23,7 +23,7 @@ export const htmlTemplate = Polymer.html`
     iron-icon {
       height: 18px;
       width: 18px;
-      color: #1565c0;
+      color: var(--link-color);
     }
     .edit_button {
       height: 17px;
