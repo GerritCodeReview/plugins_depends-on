@@ -15,18 +15,17 @@
 package com.googlesource.gerrit.plugins.depends.on;
 
 import com.google.gerrit.entities.Change;
-import com.google.gerrit.exceptions.StorageException;
-import com.google.gerrit.index.query.PostFilterPredicate;
 import com.google.gerrit.index.query.Predicate;
 import com.google.gerrit.index.query.QueryParseException;
 import com.google.gerrit.server.query.change.ChangeData;
+import com.google.gerrit.server.query.change.ChangeIndexPredicate;
+import com.google.gerrit.server.query.change.ChangePredicates;
 import com.google.gerrit.server.query.change.ChangeQueryBuilder;
 import com.google.gerrit.server.query.change.ChangeQueryBuilder.ChangeOperatorFactory;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,33 +34,8 @@ import org.slf4j.LoggerFactory;
 public class InDependsOnOperator implements ChangeOperatorFactory {
   private static final Logger log = LoggerFactory.getLogger(InDependsOnOperator.class);
 
-  public class InDependsOnPredicate extends PostFilterPredicate<ChangeData> {
-    protected final Set<Change.Id> dependentChanges;
-
-    public InDependsOnPredicate(String value) {
-      super(InDependsOnOperator.FIELD, value);
-      Optional<Change.Id> changeId = Change.Id.tryParse(value);
-      dependentChanges =
-          changeId.isPresent()
-              ? changeMessageStore.load(changeId.get()).stream()
-                  .filter(DependsOn::isResolved)
-                  .map(d -> d.id())
-                  .collect(Collectors.toSet())
-              : Collections.emptySet();
-    }
-
-    @Override
-    public int getCost() {
-      return 1;
-    }
-
-    @Override
-    public boolean match(ChangeData changeData) throws StorageException {
-      return dependentChanges.contains(changeData.getId());
-    }
-  }
-
   public static final String FIELD = "in";
+
   protected final ChangeMessageStore changeMessageStore;
 
   @Inject
@@ -72,14 +46,17 @@ public class InDependsOnOperator implements ChangeOperatorFactory {
   @Override
   public Predicate<ChangeData> create(ChangeQueryBuilder builder, String value)
       throws QueryParseException {
-    try {
-      return new InDependsOnPredicate(value);
-    } catch (NumberFormatException ex) {
-      throw new QueryParseException("Error in operator " + FIELD + ":" + value, ex);
-    } catch (StorageException ex) {
-      String message = "Error in operator " + FIELD + ":" + value;
-      log.error(message, ex);
-      throw new QueryParseException(message, ex);
+    Optional<Change.Id> changeId = Change.Id.tryParse(value);
+    if (changeId.isPresent()) {
+      List<Predicate<ChangeData>> predicates =
+          changeMessageStore.load(changeId.get()).stream()
+              .filter(DependsOn::isResolved)
+              .map(d -> ChangePredicates.idStr(d.id()))
+              .collect(Collectors.toList());
+      if (!predicates.isEmpty()) {
+        return Predicate.or(predicates);
+      }
     }
+    return ChangeIndexPredicate.none();
   }
 }
