@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ee015ef_e24fd52a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1096442
+      },
+      "writtenOn": "2023-06-08T03:17:46Z",
+      "side": 1,
+      "message": "@jim@acmegating.com We were unable to run Zuul CI on this change. We are getting \"Error: Server Error\" while accessing the CI link. Can you kindly help on this aspect?",
+      "revId": "1fa3bb883324df1b9301498b9ed689480ffcd8fc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
