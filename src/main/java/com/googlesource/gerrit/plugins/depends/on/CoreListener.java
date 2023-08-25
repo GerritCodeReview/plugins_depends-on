@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.depends.on;
 
 import com.google.gerrit.entities.Change;
 import com.google.gerrit.entities.Change.Id;
+import com.google.gerrit.server.change.ChangeFinder;
 import com.google.gerrit.server.data.ChangeAttribute;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventListener;
@@ -32,12 +33,12 @@ public class CoreListener implements EventListener {
   private static final Logger log = LoggerFactory.getLogger(CoreListener.class);
 
   protected final Propagator propagator;
-  protected final ChangeNotes.Factory changeNotesFactory;
+  protected final ChangeFinder changeFinder;
 
   @Inject
-  public CoreListener(Propagator propagator, ChangeNotes.Factory changeNotesFactory) {
+  public CoreListener(Propagator propagator, ChangeFinder changeFinder) {
     this.propagator = propagator;
-    this.changeNotesFactory = changeNotesFactory;
+    this.changeFinder = changeFinder;
   }
 
   @Override
@@ -50,11 +51,16 @@ public class CoreListener implements EventListener {
           Optional<Id> sourceId = Change.Id.tryParse(change.cherryPickOfChange.toString());
           Optional<Id> destId = Change.Id.tryParse(Integer.toString(change.number));
           if (sourceId.isPresent() && destId.isPresent()) {
-            Change sourceChange =
-                changeNotesFactory.createCheckedUsingIndexLookup(sourceId.get()).getChange();
-            Change destChange =
-                changeNotesFactory.createCheckedUsingIndexLookup(destId.get()).getChange();
-            propagator.propagateFromSourceToDestination(sourceChange, destChange);
+            Optional<ChangeNotes> sourceChange = changeFinder.findOne(sourceId.get());
+            if (!sourceChange.isPresent()) {
+              throw new NoSuchChangeException(sourceId.get());
+            }
+            Optional<ChangeNotes> destChange = changeFinder.findOne(destId.get());
+            if (!destChange.isPresent()) {
+              throw new NoSuchChangeException(destId.get());
+            }
+            propagator.propagateFromSourceToDestination(
+                sourceChange.get().getChange(), destChange.get().getChange());
           }
         } catch (InvalidChangeOperationException | NoSuchChangeException e) {
           log.error("Unable to propagate dependencies", e);

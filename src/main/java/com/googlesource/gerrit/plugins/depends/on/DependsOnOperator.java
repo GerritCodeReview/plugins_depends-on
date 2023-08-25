@@ -17,14 +17,15 @@ package com.googlesource.gerrit.plugins.depends.on;
 import com.google.gerrit.index.query.PostFilterPredicate;
 import com.google.gerrit.index.query.Predicate;
 import com.google.gerrit.index.query.QueryParseException;
+import com.google.gerrit.server.change.ChangeFinder;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.query.change.ChangeData;
 import com.google.gerrit.server.query.change.ChangeQueryBuilder;
 import com.google.gerrit.server.query.change.ChangeQueryBuilder.ChangeOperatorFactory;
 import com.google.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 public class DependsOnOperator implements ChangeOperatorFactory {
   public static final String FIELD = "has";
@@ -39,13 +40,17 @@ public class DependsOnOperator implements ChangeOperatorFactory {
 
     @Override
     public boolean match(ChangeData change) {
-      Set<DependsOn> dependOns = changeMessageStore.load(change.getId());
-      List<ChangeNotes> changeNotes =
-          changeNotesFactory.createUsingIndexLookup(
-              dependOns.stream()
-                  .filter(d -> d.isResolved())
-                  .map(DependsOn::id)
-                  .collect(Collectors.toList()));
+      List<ChangeNotes> changeNotes = new ArrayList<>();
+      for (DependsOn d : changeMessageStore.load(change.getId())) {
+        if (!d.isResolved()) {
+          continue;
+        }
+        Optional<ChangeNotes> notes = changeFinder.findOne(d.id());
+        if (!notes.isPresent()) {
+          continue;
+        }
+        changeNotes.add(notes.get());
+      }
       return changeNotes.stream()
           .anyMatch(
               note -> subQuery.asMatchable().match(changeDataFactory.create(note.getChange())));
@@ -58,16 +63,16 @@ public class DependsOnOperator implements ChangeOperatorFactory {
   }
 
   protected final ChangeMessageStore changeMessageStore;
-  protected final ChangeNotes.Factory changeNotesFactory;
+  protected final ChangeFinder changeFinder;
   protected final ChangeData.Factory changeDataFactory;
 
   @Inject
   public DependsOnOperator(
       ChangeMessageStore changeMessageStore,
-      ChangeNotes.Factory changeNotesFactory,
+      ChangeFinder changeFinder,
       ChangeData.Factory changeDataFactory) {
     this.changeMessageStore = changeMessageStore;
-    this.changeNotesFactory = changeNotesFactory;
+    this.changeFinder = changeFinder;
     this.changeDataFactory = changeDataFactory;
   }
 
