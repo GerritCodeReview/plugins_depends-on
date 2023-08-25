@@ -15,11 +15,13 @@
 package com.googlesource.gerrit.plugins.depends.on;
 
 import com.google.gerrit.entities.Change;
+import com.google.gerrit.server.change.ChangeFinder;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.project.InvalidChangeOperationException;
 import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.inject.Inject;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /*
@@ -28,12 +30,12 @@ import java.util.Set;
  */
 public class Propagator {
   protected final ChangeMessageStore changeMessageStore;
-  protected final ChangeNotes.Factory changeNotesFactory;
+  protected final ChangeFinder changeFinder;
 
   @Inject
-  public Propagator(ChangeMessageStore changeMessageStore, ChangeNotes.Factory changeNotesFactory) {
+  public Propagator(ChangeMessageStore changeMessageStore, ChangeFinder changeFinder) {
     this.changeMessageStore = changeMessageStore;
-    this.changeNotesFactory = changeNotesFactory;
+    this.changeFinder = changeFinder;
   }
 
   public void propagateFromSourceToDestination(Change srcChange, Change destChange)
@@ -60,10 +62,14 @@ public class Propagator {
     if (changeKey != null) {
       return changeKey;
     }
-    Change c = changeNotesFactory.createCheckedUsingIndexLookup(dep.id()).getChange();
-    if (c != null) {
-      return c.getKey();
+    Optional<ChangeNotes> notes = changeFinder.findOne(dep.id());
+    if (notes.isPresent()) {
+      Change c = notes.get().getChange();
+      if (c != null) {
+        return c.getKey();
+      }
     }
+
     // Since the ChangeKey parser will accept any random string
     // as a Key, it will inherently carry along random strings.
     // This is thus used to carry unidentified dependencies to

@@ -26,6 +26,7 @@ import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.server.ChangeMessagesUtil;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.cache.PerThreadCache;
+import com.google.gerrit.server.change.ChangeFinder;
 import com.google.gerrit.server.change.ChangeResource;
 import com.google.gerrit.server.change.RevisionResource;
 import com.google.gerrit.server.notedb.ChangeNotes;
@@ -64,7 +65,7 @@ public class ChangeMessageStore implements DependencyResolver {
   protected final ChangeResource.Factory changeResourceFactory;
   protected final CurrentUser currentUser;
   protected final Resolver resolver;
-  protected final ChangeNotes.Factory changeNotesFactory;
+  protected final ChangeFinder changeFinder;
   protected final ChangeMessagesUtil cmUtil;
   protected final RetryHelper retryHelper;
 
@@ -74,14 +75,14 @@ public class ChangeMessageStore implements DependencyResolver {
       ChangeResource.Factory changeResourceFactory,
       CurrentUser currentUser,
       Resolver resolver,
-      ChangeNotes.Factory changeNotesFactory,
+      ChangeFinder changeFinder,
       ChangeMessagesUtil cmUtil,
       RetryHelper retryHelper) {
     this.reviewProvider = reviewProvider;
     this.changeResourceFactory = changeResourceFactory;
     this.currentUser = currentUser;
     this.resolver = resolver;
-    this.changeNotesFactory = changeNotesFactory;
+    this.changeFinder = changeFinder;
     this.cmUtil = cmUtil;
     this.retryHelper = retryHelper;
   }
@@ -102,13 +103,7 @@ public class ChangeMessageStore implements DependencyResolver {
   }
 
   public List<DependsOn> loadWithOrder(Change.Id cid) throws StorageException {
-    ChangeNotes changeNotes;
-    try {
-      changeNotes = changeNotesFactory.createCheckedUsingIndexLookup(cid);
-    } catch (NoSuchChangeException e) {
-      return Collections.emptyList();
-    }
-    return loadWithOrder(changeNotes);
+    return changeFinder.findOne(cid).map(this::loadWithOrder).orElseGet(Collections::emptyList);
   }
 
   public List<DependsOn> loadWithOrder(ChangeNotes changeNotes) throws StorageException {
@@ -166,7 +161,9 @@ public class ChangeMessageStore implements DependencyResolver {
     ReviewInput review = new ReviewInput();
     review.message = Strings.emptyToNull(comment.toString());
     ChangeNotes changeNotes =
-        changeNotesFactory.createCheckedUsingIndexLookup(patchSetId.changeId());
+        changeFinder
+            .findOne(patchSetId.changeId())
+            .orElseThrow(() -> new NoSuchChangeException(patchSetId.changeId()));
     ChangeResource changeResource = changeResourceFactory.create(changeNotes, currentUser);
     PatchSet patchSet = changeNotes.load().getPatchSets().get(patchSetId);
     try {

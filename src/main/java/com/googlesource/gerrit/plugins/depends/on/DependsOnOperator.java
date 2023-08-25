@@ -17,14 +17,11 @@ package com.googlesource.gerrit.plugins.depends.on;
 import com.google.gerrit.index.query.PostFilterPredicate;
 import com.google.gerrit.index.query.Predicate;
 import com.google.gerrit.index.query.QueryParseException;
-import com.google.gerrit.server.notedb.ChangeNotes;
+import com.google.gerrit.server.change.ChangeFinder;
 import com.google.gerrit.server.query.change.ChangeData;
 import com.google.gerrit.server.query.change.ChangeQueryBuilder;
 import com.google.gerrit.server.query.change.ChangeQueryBuilder.ChangeOperatorFactory;
 import com.google.inject.Inject;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class DependsOnOperator implements ChangeOperatorFactory {
   public static final String FIELD = "has";
@@ -39,14 +36,9 @@ public class DependsOnOperator implements ChangeOperatorFactory {
 
     @Override
     public boolean match(ChangeData change) {
-      Set<DependsOn> dependOns = changeMessageStore.load(change.getId());
-      List<ChangeNotes> changeNotes =
-          changeNotesFactory.createUsingIndexLookup(
-              dependOns.stream()
-                  .filter(d -> d.isResolved())
-                  .map(DependsOn::id)
-                  .collect(Collectors.toList()));
-      return changeNotes.stream()
+      return changeMessageStore.load(change.getId()).stream()
+          .filter(DependsOn::isResolved)
+          .flatMap(dependsOn -> changeFinder.findOne(dependsOn.id()).stream())
           .anyMatch(
               note -> subQuery.asMatchable().match(changeDataFactory.create(note.getChange())));
     }
@@ -58,16 +50,16 @@ public class DependsOnOperator implements ChangeOperatorFactory {
   }
 
   protected final ChangeMessageStore changeMessageStore;
-  protected final ChangeNotes.Factory changeNotesFactory;
+  protected final ChangeFinder changeFinder;
   protected final ChangeData.Factory changeDataFactory;
 
   @Inject
   public DependsOnOperator(
       ChangeMessageStore changeMessageStore,
-      ChangeNotes.Factory changeNotesFactory,
+      ChangeFinder changeFinder,
       ChangeData.Factory changeDataFactory) {
     this.changeMessageStore = changeMessageStore;
-    this.changeNotesFactory = changeNotesFactory;
+    this.changeFinder = changeFinder;
     this.changeDataFactory = changeDataFactory;
   }
 
