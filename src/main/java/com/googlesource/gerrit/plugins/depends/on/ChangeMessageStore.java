@@ -25,6 +25,7 @@ import com.google.gerrit.extensions.api.changes.ReviewInput;
 import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.server.ChangeMessagesUtil;
 import com.google.gerrit.server.CurrentUser;
+import com.google.gerrit.server.cache.PerThreadCache;
 import com.google.gerrit.server.change.ChangeResource;
 import com.google.gerrit.server.change.RevisionResource;
 import com.google.gerrit.server.notedb.ChangeNotes;
@@ -38,7 +39,9 @@ import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.depends.on.extensions.DependencyResolver;
 import com.googlesource.gerrit.plugins.depends.on.formats.Comment;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -47,6 +50,11 @@ import org.slf4j.LoggerFactory;
 
 public class ChangeMessageStore implements DependencyResolver {
   private static final Logger log = LoggerFactory.getLogger(ChangeMessageStore.class);
+
+  public static class DependsOnByChangeCache extends HashMap {}
+
+  protected static final PerThreadCache.Key<DependsOnByChangeCache> DEPENDS_ON_BY_CHANGE_CACHE_KEY =
+      PerThreadCache.Key.create(DependsOnByChangeCache.class);
 
   public interface Factory {
     ChangeMessageStore create();
@@ -104,6 +112,17 @@ public class ChangeMessageStore implements DependencyResolver {
   }
 
   public List<DependsOn> loadWithOrder(ChangeNotes changeNotes) throws StorageException {
+    PerThreadCache perThreadCache = PerThreadCache.get();
+    if (perThreadCache != null) {
+      Map<Change.Id, List<DependsOn>> dependsOnByChangeCache =
+          perThreadCache.get(DEPENDS_ON_BY_CHANGE_CACHE_KEY, DependsOnByChangeCache::new);
+      return dependsOnByChangeCache.computeIfAbsent(
+          changeNotes.getChangeId(), (id) -> loadWithOrderFromNoteDb(changeNotes));
+    }
+    return loadWithOrderFromNoteDb(changeNotes);
+  }
+
+  private List<DependsOn> loadWithOrderFromNoteDb(ChangeNotes changeNotes) throws StorageException {
     for (ChangeMessage message : Lists.reverse(cmUtil.byChange(changeNotes))) {
       Optional<List<DependsOn>> deps = Comment.from(message.getMessage());
       if (deps.isPresent()) {
