@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5aa2203_56bfec80",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/depends/on/HasDependsOnOperator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2023-11-14T23:51:34Z",
+      "side": 1,
+      "message": "Do we have REST API query test coverage (and sufficient enough that we would catch any issues related to lazy loading being disabled)?",
+      "range": {
+        "startLine": 35,
+        "startChar": 38,
+        "endLine": 35,
+        "endChar": 52
+      },
+      "revId": "1f07efb64e5a9028dc2227c2d2f9730b299f314b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
