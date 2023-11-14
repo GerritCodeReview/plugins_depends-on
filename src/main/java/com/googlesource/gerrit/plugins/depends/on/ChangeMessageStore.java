@@ -89,14 +89,22 @@ public class ChangeMessageStore implements DependencyResolver {
     return loadWithOrder(cid).stream().collect(Collectors.toSet());
   }
 
+  public Set<DependsOn> load(ChangeNotes changeNotes) throws StorageException {
+    return loadWithOrder(changeNotes).stream().collect(Collectors.toSet());
+  }
+
   public List<DependsOn> loadWithOrder(Change.Id cid) throws StorageException {
-    ChangeNotes changeNote;
+    ChangeNotes changeNotes;
     try {
-      changeNote = changeNotesFactory.createCheckedUsingIndexLookup(cid);
+      changeNotes = changeNotesFactory.createCheckedUsingIndexLookup(cid);
     } catch (NoSuchChangeException e) {
       return Collections.emptyList();
     }
-    for (ChangeMessage message : Lists.reverse(cmUtil.byChange(changeNote))) {
+    return loadWithOrder(changeNotes);
+  }
+
+  public List<DependsOn> loadWithOrder(ChangeNotes changeNotes) throws StorageException {
+    for (ChangeMessage message : Lists.reverse(cmUtil.byChange(changeNotes))) {
       Optional<List<DependsOn>> deps = Comment.from(message.getMessage());
       if (deps.isPresent()) {
         return deps.get();
