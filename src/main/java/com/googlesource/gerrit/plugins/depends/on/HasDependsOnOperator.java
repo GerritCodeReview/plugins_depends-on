@@ -32,7 +32,7 @@ public class HasDependsOnOperator implements ChangeHasOperandFactory {
 
     @Override
     public boolean match(ChangeData change) {
-      return !changeMessageStore.load(change.getId()).isEmpty();
+      return !changeMessageStore.load(change.notes()).isEmpty();
     }
 
     @Override
