@@ -11,7 +11,11 @@
 # run a gerrit ssh command
 gssh() { ssh -x -p "$PORT" "$SERVER" "$@" ; 2>&1 ; } # [args]...
 
-query() { gssh gerrit query --format=json "$@" | head -1 ; }
+query_ssh() { gssh gerrit query --format=json "$@" | head -1 ; }
+
+query_http() { # query > changes_list
+    curl --netrc --silent --request GET "http://$SERVER:8080/a/changes/?q=$1" | tail -1
+}
 
 q() { "$@" > /dev/null 2>&1 ; } # cmd [args...]  # quiet a command
 
@@ -125,35 +129,47 @@ DEPENDENT_CHANGE=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || \
 CHANGE=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || \
     die "Failed to create change on project: $PROJECT branch: $SRC_REF_BRANCH"
 gssh gerrit review --message \'"Depends-on: $DEPENDENT_CHANGE"\' "$CHANGE",1
-ACTUAL="$(query "independson:$CHANGE" | jq --raw-output '.number')"
-result_out "independson operator" "$DEPENDENT_CHANGE" "$ACTUAL"
+ACTUAL="$(query_ssh "independson:$CHANGE" | jq --raw-output '.number')"
+result_out "independson operator SSH" "$DEPENDENT_CHANGE" "$ACTUAL"
+ACTUAL="$(query_http "independson:$CHANGE" | jq --raw-output '.[0]._number')"
+result_out "independson operator HTTP" "$DEPENDENT_CHANGE" "$ACTUAL"
 
-ACTUAL="$(query "independson:99999" | jq --raw-output '.number')"
-result_out "independson operator (non-existent change)" "null" "$ACTUAL"
+ACTUAL="$(query_ssh "independson:99999" | jq --raw-output '.number')"
+result_out "independson operator (non-existent change) SSH" "null" "$ACTUAL"
+ACTUAL="$(query_http "independson:99999" | jq 'length')"
+result_out "independson operator (non-existent change) HTTP" "0" "$ACTUAL"
 
 UNRESOLVED_CHANGE=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || \
     die "Failed to create change on project: $PROJECT branch: $SRC_REF_BRANCH"
 CHANGE=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || \
     die "Failed to create change on project: $PROJECT branch: $SRC_REF_BRANCH"
 gssh gerrit review --message \'"Depends-on: https://$SERVER/$UNRESOLVED_CHANGE"\' "$CHANGE",1
-ACTUAL="$(query "independson:$CHANGE" | jq --raw-output '.number')"
-result_out "independson operator (unresolved Depends-on)" "null" "$ACTUAL"
+ACTUAL="$(query_ssh "independson:$CHANGE" | jq --raw-output '.number')"
+result_out "independson operator (unresolved Depends-on) SSH" "null" "$ACTUAL"
+ACTUAL="$(query_http "independson:$CHANGE" | jq 'length')"
+result_out "independson operator (unresolved Depends-on) HTTP" "0" "$ACTUAL"
 
 # ------------------------- has:a_depends-on Tests ---------------------------
 CHANGE_1=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || \
     die "Failed to create change on project: $PROJECT branch: $SRC_REF_BRANCH"
-ACTUAL="$(query "change:$CHANGE_1 has:a_depends-on" | jq --raw-output '.number')"
-result_out "has:a_depends-on operator (no Depends-On)" "null" "$ACTUAL"
+ACTUAL="$(query_ssh "change:$CHANGE_1 has:a_depends-on" | jq --raw-output '.number')"
+result_out "has:a_depends-on operator (no Depends-On) SSH" "null" "$ACTUAL"
+ACTUAL="$(query_http "change:$CHANGE_1%20has:a_depends-on" | jq 'length')"
+result_out "has:a_depends-on operator (no Depends-On) HTTP" "0" "$ACTUAL"
 
 CHANGE_2=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || \
     die "Failed to create change on project: $PROJECT branch: $SRC_REF_BRANCH"
 gssh gerrit review --message \'"Depends-on: $CHANGE_1"\' "$CHANGE_2",1
-ACTUAL="$(query "change:$CHANGE_2 has:a_depends-on" | jq --raw-output '.number')"
-result_out "has:a_depends-on operator (non-empty Depends-on)" "$CHANGE_2" "$ACTUAL"
+ACTUAL="$(query_ssh "change:$CHANGE_2 has:a_depends-on" | jq --raw-output '.number')"
+result_out "has:a_depends-on operator (non-empty Depends-on) SSH" "$CHANGE_2" "$ACTUAL"
+ACTUAL="$(query_http "change:$CHANGE_2%20has:a_depends-on" | jq -r '.[0]._number')"
+result_out "has:a_depends-on operator (non-empty Depends-on) HTTP" "$CHANGE_2" "$ACTUAL"
 
 gssh gerrit review --message \'"Depends-on:"\' "$CHANGE_2",1
-ACTUAL="$(query "change:$CHANGE_2 has:a_depends-on" | jq --raw-output '.number')"
-result_out "has:a_depends-on operator (empty Depends-On)" "null" "$ACTUAL"
+ACTUAL="$(query_ssh "change:$CHANGE_2 has:a_depends-on" | jq --raw-output '.number')"
+result_out "has:a_depends-on operator (empty Depends-On) SSH" "null" "$ACTUAL"
+ACTUAL="$(query_http "change:$CHANGE_2%20has:a_depends-on" | jq 'length')"
+result_out "has:a_depends-on operator (empty Depends-On) HTTP" "0" "$ACTUAL"
 
 # ------------------------- hasdependson:<query> Tests ---------------------------
 CHANGE_1=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || \
@@ -161,7 +177,9 @@ CHANGE_1=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || \
 CHANGE_2=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || \
     die "Failed to create change on project: $PROJECT branch: $SRC_REF_BRANCH"
 gssh gerrit review --message \'"Depends-on: $CHANGE_1"\' "$CHANGE_2",1
-ACTUAL="$(query "change:$CHANGE_2 hasdependson:\"change:$CHANGE_1\"" | jq --raw-output '.number')"
-result_out "hasdependson operator" "$CHANGE_2" "$ACTUAL"
+ACTUAL="$(query_ssh "change:$CHANGE_2 hasdependson:\"change:$CHANGE_1\"" | jq --raw-output '.number')"
+result_out "hasdependson operator SSH" "$CHANGE_2" "$ACTUAL"
+ACTUAL="$(query_http "change:$CHANGE_2%20hasdependson:%22change:$CHANGE_1%22" | jq -r '.[0]._number')"
+result_out "hasdependson operator HTTP" "$CHANGE_2" "$ACTUAL"
 
 exit $RESULT
