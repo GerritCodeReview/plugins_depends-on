@@ -22,6 +22,30 @@
       },
       "revId": "1f07efb64e5a9028dc2227c2d2f9730b299f314b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab04b0ce_5588e8ad",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/depends/on/HasDependsOnOperator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1096442
+      },
+      "writtenOn": "2023-11-15T07:39:40Z",
+      "side": 1,
+      "message": "we don\u0027t have the coverage Nasser. Added here 392816. Done",
+      "parentUuid": "d5aa2203_56bfec80",
+      "range": {
+        "startLine": 35,
+        "startChar": 38,
+        "endLine": 35,
+        "endChar": 52
+      },
+      "revId": "1f07efb64e5a9028dc2227c2d2f9730b299f314b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
