@@ -45,6 +45,30 @@
       },
       "revId": "940b5943f43f28f0d9fba477a4eb063019a6e52e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bb56ef4_e9c6df54",
+        "filename": "test/test_dependson_operators.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1096442
+      },
+      "writtenOn": "2023-11-15T17:21:07Z",
+      "side": 1,
+      "message": "Makes sense Nasser, Let me upload a fixup",
+      "parentUuid": "8a86636b_8f283f53",
+      "range": {
+        "startLine": 157,
+        "startChar": 38,
+        "endLine": 157,
+        "endChar": 41
+      },
+      "revId": "940b5943f43f28f0d9fba477a4eb063019a6e52e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
