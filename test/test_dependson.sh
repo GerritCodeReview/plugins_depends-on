@@ -3,9 +3,13 @@
 # run a gerrit ssh command
 gssh() { ssh -x -p "$PORT" "$SERVER" "$@" ; 2>&1 ; } # [args]...
 
-query() {
+query_ssh() {
     gssh gerrit query --format=json "$@" | head -1 | \
         python -c 'import sys,json; print json.dumps(json.load(sys.stdin))'
+}
+
+query_http() { # query > changes_list
+    curl --netrc --silent --request GET "http://$SERVER:8080/a/changes/?q=$1" | tail -1
 }
 
 q() { "$@" > /dev/null 2>&1 ; } # cmd [args...]  # quiet a command
@@ -176,7 +180,7 @@ base_change=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || exit
 src_change=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || exit
 gssh gerrit review --message \'"Depends-on: $base_change"\' "$src_change",1
 dest_change=$(cherry_pick_change "$src_change" "$DEST_REF")
-expected="Depends-on: $(query "$base_change" | jq --raw-output '.id')"
+expected="Depends-on: $(query_ssh "$base_change" | jq --raw-output '.id')"
 actual=$(get_depends_on_tag "$dest_change")
 result_out "propagate depends-on" "$expected" "$actual"
 
@@ -220,15 +224,26 @@ result_out "depends-on patchset level comment - REST" "$expected" "$out"
 change=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || exit
 gssh gerrit review --message \
     \'"Depends-on: 10 30 Ieace383c14de79bf202c85063d5a46a0580724dd 20"\' "$change",1
-out=$(query "$change" --depends-on--all | jq --raw-output '.plugins[0].dependsOns')
-result "depends-on query"
-result_out "depends-on query output 1" "10" "$(echo "$out" | jq '.[0].changeNumber')"
-result_out "depends-on query output 2" "30" "$(echo "$out" | jq '.[1].changeNumber')"
-result_out "depends-on query output 3" "Ieace383c14de79bf202c85063d5a46a0580724dd" \
+out=$(query_ssh "change:$change" --depends-on--all | jq --raw-output '.plugins[0].dependsOns')
+result "depends-on query SSH"
+result_out "depends-on query output 1 SSH" "10" "$(echo "$out" | jq '.[0].changeNumber')"
+result_out "depends-on query output 2 SSH" "30" "$(echo "$out" | jq '.[1].changeNumber')"
+result_out "depends-on query output 3 SSH" "Ieace383c14de79bf202c85063d5a46a0580724dd" \
     "$(echo "$out" | jq --raw-output '.[2].unresolved')"
-result_out "depends-on query output 4" "20" "$(echo "$out" | jq '.[3].changeNumber')"
-result_out "depends-on query output datatype" "number number string number" \
+result_out "depends-on query output 4 SSH" "20" "$(echo "$out" | jq '.[3].changeNumber')"
+result_out "depends-on query output datatype SSH" "number number string number" \
     "$(echo "$out" | jq --raw-output 'map(select(.changeNumber!=null).changeNumber,
+        select(.unresolved!=null).unresolved | type) | join(" ")')"
+
+out=$(query_http "change:$change&--depends-on--all" | jq '.[0].plugins[0].depends_ons')
+result "depends-on query HTTP"
+result_out "depends-on query output 1 HTTP" "10" "$(echo "$out" | jq '.[0].change_number')"
+result_out "depends-on query output 2 HTTP" "30" "$(echo "$out" | jq '.[1].change_number')"
+result_out "depends-on query output 3 HTTP" "Ieace383c14de79bf202c85063d5a46a0580724dd" \
+    "$(echo "$out" | jq --raw-output '.[2].unresolved')"
+result_out "depends-on query output 4 HTTP" "20" "$(echo "$out" | jq '.[3].change_number')"
+result_out "depends-on query output datatype HTTP" "number number string number" \
+    "$(echo "$out" | jq --raw-output 'map(select(.change_number!=null).change_number,
         select(.unresolved!=null).unresolved | type) | join(" ")')"
 
 exit $RESULT
