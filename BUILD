@@ -81,12 +81,7 @@ eslint(
         ".js",
     ],
     ignore = ".eslintignore",
-    plugins = [
-        "@npm//eslint-config-google",
-        "@npm//eslint-plugin-html",
-        "@npm//eslint-plugin-import",
-        "@npm//eslint-plugin-jsdoc",
-    ],
+    plugins = [],
 )
 
 junit_tests(
