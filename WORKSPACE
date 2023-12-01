@@ -1,14 +1,11 @@
 workspace(
     name = "depends-on",
-    managed_directories = {
-        "@npm": ["node_modules"],
-    },
 )
 
 load("//:bazlets.bzl", "load_bazlets")
 
 load_bazlets(
-    commit = "00a97f96162f06119021372f24e8a77d196079e1",
+    commit = "b6120a9fa50945d38f0a4d55d5879e3ec465c5e5",
 )
 
 load(
@@ -31,7 +28,16 @@ load(
 
 gerrit_polymer()
 
-load("@build_bazel_rules_nodejs//:index.bzl", "yarn_install")
+load("@build_bazel_rules_nodejs//:repositories.bzl", "build_bazel_rules_nodejs_dependencies")
+
+build_bazel_rules_nodejs_dependencies()
+
+load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories", "yarn_install")
+
+node_repositories(
+    node_version = "16.13.2",
+    yarn_version = "1.22.17",
+)
 
 yarn_install(
     name = "npm",
