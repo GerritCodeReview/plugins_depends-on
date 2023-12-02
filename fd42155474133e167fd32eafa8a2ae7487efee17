@@ -16,6 +16,24 @@
       "message": "There\u0027s no diff in `bazel-bin/gr-depends-on-plugin.js` before and after this change.\n\nIt does point to a commit for an unmerged bazlets change: 395802: Remove bower and html plugin support | https://gerrit-review.googlesource.com/c/bazlets/+/395802",
       "revId": "fd42155474133e167fd32eafa8a2ae7487efee17",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8efc491c_2e0f5b56",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2023-12-02T00:33:05Z",
+      "side": 1,
+      "message": "\u003e It does point to a commit for an unmerged bazlets change: 395802: Remove bower and html plugin support | https://gerrit-review.googlesource.com/c/bazlets/+/395802\n\nThe change is now merged and PS2 has the updated commit-id for bazlets.",
+      "parentUuid": "4fde0f4f_529be729",
+      "revId": "fd42155474133e167fd32eafa8a2ae7487efee17",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
