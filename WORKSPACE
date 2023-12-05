@@ -5,8 +5,8 @@ workspace(
 load("//:bazlets.bzl", "load_bazlets")
 
 load_bazlets(
-    commit = "b6120a9fa50945d38f0a4d55d5879e3ec465c5e5",
-    shallow_since = "1701477032 -0700",
+    commit = "f930de7dc62e319c82d2afc8f10efd1290fd62b8",
+    shallow_since = "1701814448 -0700",
 )
 
 load(
@@ -36,8 +36,8 @@ build_bazel_rules_nodejs_dependencies()
 load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories", "yarn_install")
 
 node_repositories(
-    node_version = "16.13.2",
-    yarn_version = "1.22.17",
+    node_version = "17.9.1",
+    yarn_version = "1.22.19",
 )
 
 yarn_install(
