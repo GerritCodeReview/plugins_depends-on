@@ -22,6 +22,30 @@
       },
       "revId": "2a6eed0e7376c1663f29d959bea2b65974425896",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be240645_bc15e23f",
+        "filename": "WORKSPACE",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2023-12-06T18:09:18Z",
+      "side": 1,
+      "message": "Merged now.",
+      "parentUuid": "49d7d75a_b4839f35",
+      "range": {
+        "startLine": 8,
+        "startChar": 14,
+        "endLine": 8,
+        "endChar": 54
+      },
+      "revId": "2a6eed0e7376c1663f29d959bea2b65974425896",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
