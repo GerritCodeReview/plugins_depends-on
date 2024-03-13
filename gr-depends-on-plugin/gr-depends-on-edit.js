@@ -58,7 +58,7 @@ class GrDependsOnEdit extends Polymer.Element {
 
   _openEditDialog() {
     this._value = this._originalValue;
-    this.$.edit_dialog_overlay.open();
+    this.$.edit_dialog_overlay.show();
     this.$.edit_dialog.classList.toggle('invisible', false);
   }
 

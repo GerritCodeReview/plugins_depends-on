@@ -16,13 +16,11 @@
  */
 
 export const htmlTemplate = Polymer.html`
-  <style>
+  <style include="gr-modal-styles">
     .title {
       vertical-align: top;
     }
-    iron-icon {
-      height: 18px;
-      width: 18px;
+    gr-icon {
       color: var(--link-color);
     }
     .edit_button {
@@ -42,9 +40,9 @@ export const htmlTemplate = Polymer.html`
   </style>
   <div class="depends_on_edit">
     <paper-button class="edit_button" on-click="_openEditDialog">
-      <iron-icon icon="gr-icons:edit"/>
+      <gr-icon icon="edit" filled small/>
     </paper-button>
-    <gr-overlay id="edit_dialog_overlay" with-backdrop>
+    <dialog id="edit_dialog_overlay" tabindex="-1">
       <gr-dialog id="edit_dialog" confirm-label="Save"
           on-confirm="_saveDependsOn" on-cancel="_closeEditDialog">
         <div class="header" slot="header">Depends-on:</div>
@@ -53,6 +51,6 @@ export const htmlTemplate = Polymer.html`
               autocomplete="off" focused=true bind-value="{{_value}}"/>
         </div>
       </gr-dialog>
-    </gr-overlay>
+    </dialog>
   </div>
 `;
