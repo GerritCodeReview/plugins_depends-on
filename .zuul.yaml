@@ -7,6 +7,15 @@
       - polymer-bridges
 
 - project:
+    description: |
+      Build the plugin in check, and also build and publish it after
+      every merged commit.
     check:
       jobs:
         - plugins-depends-on-build
+    post:
+      jobs:
+        - plugins-depends-on-build
+        - gerrit-plugin-publish:
+            dependencies:
+              - gerrit-plugin-build
