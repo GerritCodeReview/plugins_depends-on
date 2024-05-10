@@ -3,6 +3,8 @@
     parent: gerrit-plugin-build
     pre-run:
         tools/playbooks/install_docker.yaml
+    required-projects:
+      - polymer-bridges
 
 - project:
     check:

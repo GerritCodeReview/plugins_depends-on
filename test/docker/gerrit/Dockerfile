@@ -1,6 +1,7 @@
 FROM gerritcodereview/gerrit:3.9.1-ubuntu22
 
 ENV GERRIT_SITE /var/gerrit
+RUN rm -rf "$GERRIT_SITE/plugins" && mkdir "$GERRIT_SITE/plugins"
 COPY artifacts/plugins/ $GERRIT_SITE/plugins/
 
 USER root
