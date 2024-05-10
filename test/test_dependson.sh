@@ -4,8 +4,7 @@
 gssh() { ssh -x -p "$PORT" "$SERVER" "$@" ; 2>&1 ; } # [args]...
 
 query_ssh() {
-    gssh gerrit query --format=json "$@" | head -1 | \
-        python -c 'import sys,json; print json.dumps(json.load(sys.stdin))'
+    gssh gerrit query --format=json "$@" | head -1
 }
 
 query_http() { # query > changes_list
