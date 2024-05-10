@@ -108,10 +108,16 @@ sh_test(
     size = "medium",
     srcs = ["test/docker/run.sh"],
     args = [
-        "--plugin", plugin_name,
+        "--gerrit-war",
+        "$(location //:gerrit.war)",
+        "--plugin",
+        plugin_name,
         "$(location :depends-on)",
     ],
-    data = [plugin_name] + glob(["test/**"]),
+    data = [
+        "//:gerrit.war",
+        plugin_name,
+    ] + glob(["test/**"]),
     local = True,
     tags = ["docker"],
 )
