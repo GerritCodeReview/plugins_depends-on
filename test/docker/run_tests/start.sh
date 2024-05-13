@@ -5,13 +5,10 @@ TEST_PROJECT=test-project
 
 setup_test_project() {
     echo "Creating a test project ..."
-    ssh -p "$PORT" -x "$GERRIT_HOST" gerrit create-project "${TEST_PROJECT}".git \
-        --owner "Administrators" --submit-type "MERGE_IF_NECESSARY"
+    ssh -p "$PORT" -x "$GERRIT_HOST" gerrit create-project "${TEST_PROJECT}" \
+        --owner "Administrators" --submit-type "MERGE_IF_NECESSARY" \
+        --empty-commit
     git clone ssh://"$GERRIT_HOST":"$PORT"/"$TEST_PROJECT" "$WORKSPACE"
-    pushd "$WORKSPACE" > /dev/null
-    git commit -m "Initial commit" --allow-empty
-    git push ssh://"$GERRIT_HOST":"$PORT"/"$TEST_PROJECT" HEAD:refs/heads/master
-    popd > /dev/null
 }
 
 cp -r /depends_on "$USER_HOME"/
