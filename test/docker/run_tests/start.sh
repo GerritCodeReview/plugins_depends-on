@@ -17,11 +17,11 @@ cd "$USER_HOME"/depends_on/test
 ./docker/run_tests/wait-for-it.sh "$GERRIT_HOST":"$PORT" \
     -t 60 -- echo "Gerrit is up"
 
-echo "Creating a default user account ..."
+echo "Update admin account ..."
 
 cat "$USER_HOME"/.ssh/id_rsa.pub | ssh -p 29418 -i /server-ssh-key/ssh_host_rsa_key \
-  "Gerrit Code Review@$GERRIT_HOST" suexec --as "admin@example.com" -- gerrit create-account \
-     --ssh-key - --email "gerrit_admin@localdomain"  --group "Administrators" "gerrit_admin"
+    "Gerrit Code Review@$GERRIT_HOST" suexec --as "admin@example.com" -- \
+    gerrit set-account "$USER" --add-ssh-key -
 
 setup_test_project
 
