@@ -59,7 +59,7 @@ build_images() {
 
 run_depends_on_plugin_tests() {
     docker-compose "${COMPOSE_ARGS[@]}" up --detach
-    docker-compose "${COMPOSE_ARGS[@]}" exec -T --user=gerrit_admin run_tests \
+    docker-compose "${COMPOSE_ARGS[@]}" exec -T --user=admin run_tests \
         '/depends_on/test/docker/run_tests/start.sh'
 }
 

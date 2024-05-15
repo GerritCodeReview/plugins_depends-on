@@ -5,13 +5,10 @@ TEST_PROJECT=test-project
 
 setup_test_project() {
     echo "Creating a test project ..."
-    ssh -p "$PORT" -x "$GERRIT_HOST" gerrit create-project "${TEST_PROJECT}".git \
-        --owner "Administrators" --submit-type "MERGE_IF_NECESSARY"
+    ssh -p "$PORT" -x "$GERRIT_HOST" gerrit create-project "${TEST_PROJECT}" \
+        --owner "Administrators" --submit-type "MERGE_IF_NECESSARY" \
+        --empty-commit
     git clone ssh://"$GERRIT_HOST":"$PORT"/"$TEST_PROJECT" "$WORKSPACE"
-    pushd "$WORKSPACE" > /dev/null
-    git commit -m "Initial commit" --allow-empty
-    git push ssh://"$GERRIT_HOST":"$PORT"/"$TEST_PROJECT" HEAD:refs/heads/master
-    popd > /dev/null
 }
 
 cp -r /depends_on "$USER_HOME"/
@@ -20,11 +17,11 @@ cd "$USER_HOME"/depends_on/test
 ./docker/run_tests/wait-for-it.sh "$GERRIT_HOST":"$PORT" \
     -t 60 -- echo "Gerrit is up"
 
-echo "Creating a default user account ..."
+echo "Update admin account ..."
 
 cat "$USER_HOME"/.ssh/id_rsa.pub | ssh -p 29418 -i /server-ssh-key/ssh_host_rsa_key \
-  "Gerrit Code Review@$GERRIT_HOST" suexec --as "admin@example.com" -- gerrit create-account \
-     --ssh-key - --email "gerrit_admin@localdomain"  --group "Administrators" "gerrit_admin"
+    "Gerrit Code Review@$GERRIT_HOST" suexec --as "admin@example.com" -- \
+    gerrit set-account "$USER" --add-ssh-key -
 
 setup_test_project
 
