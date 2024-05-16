@@ -68,6 +68,98 @@
       },
       "revId": "ef9c2da242e1ac92af856cbf51a29036f66fc0a8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1387ba9f_47367022",
+        "filename": "src/main/resources/Documentation/change-search-operators.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1152670
+      },
+      "writtenOn": "2024-05-16T08:40:31Z",
+      "side": 1,
+      "message": "Instead of explaining this at the top, you could perhaps add all the examples at the bottom and mention the assumptions ?",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 3
+      },
+      "revId": "ef9c2da242e1ac92af856cbf51a29036f66fc0a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dad30426_16904812",
+        "filename": "src/main/resources/Documentation/change-search-operators.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1152670
+      },
+      "writtenOn": "2024-05-16T08:40:31Z",
+      "side": 1,
+      "message": "Use some generic server and remove jq. Same for all the usages below.\n\n```suggestion\n$ ssh -p 29418 review.example.com gerrit query \"independson:1\" --format\u003dJSON\n```",
+      "range": {
+        "startLine": 17,
+        "startChar": 15,
+        "endLine": 17,
+        "endChar": 30
+      },
+      "revId": "ef9c2da242e1ac92af856cbf51a29036f66fc0a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9eebd56_5caebb48",
+        "filename": "src/main/resources/Documentation/change-search-operators.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1152670
+      },
+      "writtenOn": "2024-05-16T08:40:31Z",
+      "side": 1,
+      "message": "nit:\n```suggestion\n  \"subject\": \"change 1\",\n```",
+      "range": {
+        "startLine": 57,
+        "startChar": 14,
+        "endLine": 57,
+        "endChar": 26
+      },
+      "revId": "ef9c2da242e1ac92af856cbf51a29036f66fc0a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aff52ebc_55f6ec70",
+        "filename": "src/main/resources/Documentation/change-search-operators.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1152670
+      },
+      "writtenOn": "2024-05-16T08:40:31Z",
+      "side": 1,
+      "message": "```suggestion\n  \"subject\": \"change 1\",\n```",
+      "range": {
+        "startLine": 90,
+        "startChar": 14,
+        "endLine": 90,
+        "endChar": 26
+      },
+      "revId": "ef9c2da242e1ac92af856cbf51a29036f66fc0a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
