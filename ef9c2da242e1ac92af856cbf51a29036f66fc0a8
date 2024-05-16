@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d4a1dc7_c120bd89",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1152670
+      },
+      "writtenOn": "2024-05-16T08:29:31Z",
+      "side": 1,
+      "message": "nit:s/Add example in search operator/Improve documentation for Search Operators by adding examples",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 30
+      },
+      "revId": "ef9c2da242e1ac92af856cbf51a29036f66fc0a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3768919d_4a720db5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1152670
+      },
+      "writtenOn": "2024-05-16T08:29:31Z",
+      "side": 1,
+      "message": "nit: redundant since the change is in depends-on plugin",
+      "range": {
+        "startLine": 7,
+        "startChar": 31,
+        "endLine": 7,
+        "endChar": 52
+      },
+      "revId": "ef9c2da242e1ac92af856cbf51a29036f66fc0a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a9f0489_3f109a65",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1152670
+      },
+      "writtenOn": "2024-05-16T08:29:31Z",
+      "side": 1,
+      "message": "redundant (this info is already in the subject) ?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 50
+      },
+      "revId": "ef9c2da242e1ac92af856cbf51a29036f66fc0a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
