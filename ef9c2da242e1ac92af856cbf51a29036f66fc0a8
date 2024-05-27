@@ -118,6 +118,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c4ae41e1_632ccfcd",
+        "filename": "src/main/resources/Documentation/change-search-operators.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 3380830
+      },
+      "writtenOn": "2024-05-27T07:24:33Z",
+      "side": 1,
+      "message": "we have used Jsonquery to present content in json format. Can you please help me know what do you mean by generic server here ?",
+      "parentUuid": "dad30426_16904812",
+      "range": {
+        "startLine": 17,
+        "startChar": 15,
+        "endLine": 17,
+        "endChar": 30
+      },
+      "revId": "ef9c2da242e1ac92af856cbf51a29036f66fc0a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f9eebd56_5caebb48",
         "filename": "src/main/resources/Documentation/change-search-operators.md",
         "patchSetId": 1
