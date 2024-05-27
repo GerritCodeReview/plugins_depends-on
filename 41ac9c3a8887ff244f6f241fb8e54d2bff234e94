@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9801409a_1893ce85",
+        "filename": "src/main/resources/Documentation/change-search-operators.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1152670
+      },
+      "writtenOn": "2024-05-27T16:29:35Z",
+      "side": 1,
+      "message": "```suggestion\nAssuming two changes, change 1 and change 2, such that change 1 depends on change 2. The search operators can be used as shown below\n```",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 3
+      },
+      "revId": "41ac9c3a8887ff244f6f241fb8e54d2bff234e94",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
