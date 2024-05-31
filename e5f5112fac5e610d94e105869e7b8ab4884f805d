@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb79c1bc_52d51de8",
+        "filename": "src/main/resources/Documentation/change-search-operators.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2024-05-31T17:13:32Z",
+      "side": 1,
+      "message": "gerrit.example.com",
+      "range": {
+        "startLine": 42,
+        "startChar": 17,
+        "endLine": 42,
+        "endChar": 33
+      },
+      "revId": "e5f5112fac5e610d94e105869e7b8ab4884f805d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2c3dc2b_f0780253",
+        "filename": "src/main/resources/Documentation/change-search-operators.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2024-05-31T17:13:32Z",
+      "side": 1,
+      "message": "gerrit.example.com",
+      "range": {
+        "startLine": 73,
+        "startChar": 17,
+        "endLine": 73,
+        "endChar": 33
+      },
+      "revId": "e5f5112fac5e610d94e105869e7b8ab4884f805d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e78f5ec6_d362a7cf",
+        "filename": "src/main/resources/Documentation/change-search-operators.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2024-05-31T17:13:32Z",
+      "side": 1,
+      "message": "gerrit.example.com",
+      "range": {
+        "startLine": 104,
+        "startChar": 17,
+        "endLine": 104,
+        "endChar": 33
+      },
+      "revId": "e5f5112fac5e610d94e105869e7b8ab4884f805d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
