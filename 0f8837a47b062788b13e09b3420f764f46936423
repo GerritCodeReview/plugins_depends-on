@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68dd81d1_811209dc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1152670
+      },
+      "writtenOn": "2024-06-03T09:02:53Z",
+      "side": 1,
+      "message": "Add screenshot footer",
+      "revId": "0f8837a47b062788b13e09b3420f764f46936423",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c816d49_80610ea9",
+        "filename": "src/main/resources/Documentation/change-search-operators.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1152670
+      },
+      "writtenOn": "2024-06-03T09:02:53Z",
+      "side": 1,
+      "message": "```suggestion\n$ ssh -p 29418 user@gerrit.example.com gerrit query \"change:1 has:a_depends-on\" --format\u003dJSON\n```",
+      "range": {
+        "startLine": 95,
+        "startChar": 52,
+        "endLine": 95,
+        "endChar": 53
+      },
+      "revId": "0f8837a47b062788b13e09b3420f764f46936423",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
