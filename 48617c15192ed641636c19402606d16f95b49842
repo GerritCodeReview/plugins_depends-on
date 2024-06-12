@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1018e513_8bf76607",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/depends/on/ChangeMessageStore.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2024-06-12T18:52:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd126ace_0b44695d",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 44
+      },
+      "revId": "48617c15192ed641636c19402606d16f95b49842",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aaab2bc7_e1d1ab8d",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-06-11T19:12:28Z",
       "side": 1,
       "message": "```suggestion\n    ChangeNotes changeNotes \u003d\n        changeFinder\n            .findOne(patchSetId.changeId())\n            .orElseThrow(() -\u003e new NoSuchChangeException(patchSetId.changeId()));\n    ChangeResource changeResource \u003d changeResourceFactory.create(changeNotes, currentUser);\n    PatchSet patchSet \u003d changeNotes.load().getPatchSets().get(patchSetId);\n```",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 80
+      },
+      "revId": "48617c15192ed641636c19402606d16f95b49842",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fca6da01_7a41e1d6",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/depends/on/ChangeMessageStore.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2024-06-12T18:52:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aaab2bc7_e1d1ab8d",
       "range": {
         "startLine": 167,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d60c811_21d072f5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/depends/on/CoreListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2024-06-12T18:52:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef1a6a0d_f1ad27bf",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 78
+      },
+      "revId": "48617c15192ed641636c19402606d16f95b49842",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "776b592c_47b95c24",
@@ -93,6 +165,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0860b394_135ee1f3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/depends/on/DependsOnOperator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2024-06-12T18:52:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "776b592c_47b95c24",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 96
+      },
+      "revId": "48617c15192ed641636c19402606d16f95b49842",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d55096d_4dd6c275",
@@ -106,6 +202,30 @@
       "writtenOn": "2024-06-11T19:12:28Z",
       "side": 1,
       "message": "Maybe replace with \n\u003e    changeFinder\n\u003e        .findOne(dep.id())\n\u003e        .map(ChangeNotes::getChange)\n\u003e        .map(Change::getKey)\n\u003e        .orElseGet(() -\u003e Change.Key.parse(Integer.toString(dep.id().get())));\n\nBut I don\u0027t know where to fit the comment",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 62
+      },
+      "revId": "48617c15192ed641636c19402606d16f95b49842",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82123536_7ce14159",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/depends/on/Propagator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2024-06-12T18:52:20Z",
+      "side": 1,
+      "message": "Yeah. I\u0027ll leave it as-is.",
+      "parentUuid": "9d55096d_4dd6c275",
       "range": {
         "startLine": 65,
         "startChar": 0,
