@@ -158,6 +158,12 @@ public class ChangeMessageStore implements DependencyResolver {
   /** Create a comment on the change with a DependsOn for the deps. */
   public void store(PatchSet.Id patchSetId, Set<DependsOn> deps, String message)
       throws InvalidChangeOperationException, StorageException {
+    store(changeNotesFactory.createCheckedUsingIndexLookup(patchSetId.changeId()), deps, message);
+  }
+
+  /** Create a comment on the change with a DependsOn for the deps. */
+  public void store(ChangeNotes changeNotes, Set<DependsOn> deps, String message)
+      throws InvalidChangeOperationException, StorageException {
     StringBuilder comment = new StringBuilder();
     if (message != null) {
       comment.append(message + "\n\n");
@@ -165,10 +171,8 @@ public class ChangeMessageStore implements DependencyResolver {
     comment.append(Comment.getMessages(deps));
     ReviewInput review = new ReviewInput();
     review.message = Strings.emptyToNull(comment.toString());
-    ChangeNotes changeNotes =
-        changeNotesFactory.createCheckedUsingIndexLookup(patchSetId.changeId());
     ChangeResource changeResource = changeResourceFactory.create(changeNotes, currentUser);
-    PatchSet patchSet = changeNotes.load().getPatchSets().get(patchSetId);
+    PatchSet patchSet = changeNotes.getCurrentPatchSet();
     try {
       retryHelper
           .changeUpdate(
