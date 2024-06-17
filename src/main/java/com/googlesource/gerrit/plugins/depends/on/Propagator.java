@@ -36,19 +36,19 @@ public class Propagator {
     this.changeNotesFactory = changeNotesFactory;
   }
 
-  public void propagateFromSourceToDestination(Change srcChange, Change destChange)
+  public void propagateFromSourceToDestination(ChangeNotes srcChange, ChangeNotes destChange)
       throws InvalidChangeOperationException, NoSuchChangeException {
 
-    Set<DependsOn> deps = changeMessageStore.load(srcChange.getId());
+    Set<DependsOn> deps = changeMessageStore.load(srcChange);
     if (!deps.isEmpty()) {
       Set<DependsOn> keyDeps = new HashSet<DependsOn>(deps.size());
       for (DependsOn dep : deps) {
         keyDeps.add(DependsOn.create(loadChangeKey(dep)));
       }
       changeMessageStore.store(
-          destChange.currentPatchSetId(),
+          destChange,
           keyDeps,
-          "Dependencies propagated from " + srcChange.currentPatchSetId());
+          "Dependencies propagated from " + srcChange.getChange().currentPatchSetId());
     }
   }
 
