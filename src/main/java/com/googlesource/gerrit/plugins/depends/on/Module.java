@@ -26,6 +26,7 @@ import com.google.gerrit.extensions.webui.WebUiPlugin;
 import com.google.gerrit.server.DynamicOptions.DynamicBean;
 import com.google.gerrit.server.change.ChangePluginDefinedInfoFactory;
 import com.google.gerrit.server.events.EventListener;
+import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.project.InvalidChangeOperationException;
 import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gerrit.server.query.change.ChangeQueryBuilder.ChangeHasOperandFactory;
@@ -78,6 +79,14 @@ public class Module extends AbstractModule {
       this.changeMessageStore = changeMessageStore;
     }
 
+    @Override
+    public boolean resolveDependencies(
+        ChangeNotes changeNotes, Set<Set<BranchNameKey>> deliverables)
+        throws InvalidChangeOperationException {
+      return changeMessageStore.resolveDependencies(changeNotes, deliverables);
+    }
+
+    @Deprecated
     @Override
     public boolean resolveDependencies(PatchSet.Id patchSetId, Set<Set<BranchNameKey>> deliverables)
         throws InvalidChangeOperationException, StorageException, NoSuchChangeException {

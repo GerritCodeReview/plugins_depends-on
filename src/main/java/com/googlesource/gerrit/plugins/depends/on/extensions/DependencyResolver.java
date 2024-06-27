@@ -19,12 +19,17 @@ import com.google.gerrit.entities.Change;
 import com.google.gerrit.entities.PatchSet;
 import com.google.gerrit.exceptions.StorageException;
 import com.google.gerrit.server.DynamicOptions.DynamicBean;
+import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.project.InvalidChangeOperationException;
 import java.util.Set;
 
 public interface DependencyResolver extends DynamicBean {
-  public boolean resolveDependencies(PatchSet.Id patchSetId, Set<Set<BranchNameKey>> deliverables)
+  boolean resolveDependencies(ChangeNotes changeNotes, Set<Set<BranchNameKey>> deliverables)
       throws InvalidChangeOperationException, StorageException;
 
-  public boolean hasUnresolvedDependsOn(Change.Id changeId) throws StorageException;
+  @Deprecated
+  boolean resolveDependencies(PatchSet.Id patchSetId, Set<Set<BranchNameKey>> deliverables)
+      throws InvalidChangeOperationException, StorageException;
+
+  boolean hasUnresolvedDependsOn(Change.Id changeId) throws StorageException;
 }

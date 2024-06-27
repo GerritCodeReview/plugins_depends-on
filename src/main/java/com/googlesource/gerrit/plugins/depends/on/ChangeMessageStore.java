@@ -134,10 +134,9 @@ public class ChangeMessageStore implements DependencyResolver {
 
   /** If needed, create a comment on the change with a DependsOn for the dependencies. */
   @Override
-  public boolean resolveDependencies(PatchSet.Id patchSetId, Set<Set<BranchNameKey>> deliverables)
+  public boolean resolveDependencies(ChangeNotes changeNotes, Set<Set<BranchNameKey>> deliverables)
       throws InvalidChangeOperationException, StorageException {
-    Change.Id cid = patchSetId.changeId();
-    Set<DependsOn> deps = load(cid);
+    Set<DependsOn> deps = load(changeNotes);
     if (Resolver.isResolved(deps)) {
       return false;
     }
@@ -146,19 +145,22 @@ public class ChangeMessageStore implements DependencyResolver {
       return false; // Nothing resolved this pass
     }
     // ToDo: add info about the resolved depends-on (deliverable, branch, and ChangeId?)
-    store(patchSetId, resolved, "Auto-updating resolved Depends-on");
+    store(changeNotes, resolved, "Auto-updating resolved Depends-on");
     return true;
+  }
+
+  /** If needed, create a comment on the change with a DependsOn for the dependencies. */
+  @Deprecated
+  @Override
+  public boolean resolveDependencies(PatchSet.Id patchSetId, Set<Set<BranchNameKey>> deliverables)
+      throws InvalidChangeOperationException, StorageException {
+    return resolveDependencies(
+        changeNotesFactory.createCheckedUsingIndexLookup(patchSetId.changeId()), deliverables);
   }
 
   @Override
   public boolean hasUnresolvedDependsOn(Change.Id changeId) {
     return !Resolver.isResolved(load(changeId));
-  }
-
-  /** Create a comment on the change with a DependsOn for the deps. */
-  public void store(PatchSet.Id patchSetId, Set<DependsOn> deps, String message)
-      throws InvalidChangeOperationException, StorageException {
-    store(changeNotesFactory.createCheckedUsingIndexLookup(patchSetId.changeId()), deps, message);
   }
 
   /** Create a comment on the change with a DependsOn for the deps. */
