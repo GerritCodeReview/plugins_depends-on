@@ -78,8 +78,8 @@ public class DependsOnAttributeFactory implements ChangePluginDefinedInfoFactory
   }
 
   protected static class DependsOnAttribute {
-    @Nullable protected Integer changeNumber;
-    @Nullable protected String unresolved;
+    @Nullable public Integer changeNumber;
+    @Nullable public String unresolved;
 
     public DependsOnAttribute(DependsOn dependsOn) {
       if (dependsOn.isResolved()) {
