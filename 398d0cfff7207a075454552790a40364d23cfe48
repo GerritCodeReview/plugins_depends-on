@@ -22,6 +22,30 @@
       },
       "revId": "398d0cfff7207a075454552790a40364d23cfe48",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1051c4e2_6c1f244b",
+        "filename": "test/test_dependson.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1152670
+      },
+      "writtenOn": "2024-08-09T19:14:34Z",
+      "side": 1,
+      "message": "Created follow-up change",
+      "parentUuid": "64f1a340_f0a0971c",
+      "range": {
+        "startLine": 227,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 48
+      },
+      "revId": "398d0cfff7207a075454552790a40364d23cfe48",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
