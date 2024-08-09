@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64f1a340_f0a0971c",
+        "filename": "test/test_dependson.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2024-08-09T18:49:17Z",
+      "side": 1,
+      "message": "Below is probably better and not as fragile?\n\n```suggestion\ndepends_ons\u003d$(echo \"$out\" | grep -A 1 dependsOns)\nresult_out \"depends-on query output 1 without JSON SSH\" \"changeNumber: 10\" \\\n    \"$(echo \"$depends_ons\" | grep changeNumber)\"\nresult_out \"depends-on query output 2 without JSON SSH\" \"unresolved: abc\" \\\n    \"$(echo \"$depends_ons\" | grep unresolved)\"\n```",
+      "range": {
+        "startLine": 227,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 48
+      },
+      "revId": "398d0cfff7207a075454552790a40364d23cfe48",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
