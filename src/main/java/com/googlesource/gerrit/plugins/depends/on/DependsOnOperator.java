@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.depends.on;
 
+import com.google.gerrit.exceptions.StorageException;
 import com.google.gerrit.index.query.PostFilterPredicate;
 import com.google.gerrit.index.query.Predicate;
 import com.google.gerrit.index.query.QueryParseException;
@@ -39,7 +40,12 @@ public class DependsOnOperator implements ChangeOperatorFactory {
 
     @Override
     public boolean match(ChangeData change) {
-      Set<DependsOn> dependOns = changeMessageStore.load(change.getId());
+      Set<DependsOn> dependOns;
+      try {
+        dependOns = changeMessageStore.load(change.notes());
+      } catch (StorageException e) {
+        dependOns = changeMessageStore.load(change.getId());
+      }
       List<ChangeNotes> changeNotes =
           changeNotesFactory.createUsingIndexLookup(
               dependOns.stream()

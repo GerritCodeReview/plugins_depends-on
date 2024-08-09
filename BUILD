@@ -14,19 +14,13 @@ plugin_name = "depends-on"
 java_plugin(
     name = "auto-annotation-plugin",
     processor_class = "com.google.auto.value.processor.AutoAnnotationProcessor",
-    deps = [
-        "@auto-value-annotations//jar",
-        "@auto-value//jar",
-    ],
+    deps = PLUGIN_DEPS,
 )
 
 java_plugin(
     name = "auto-value-plugin",
     processor_class = "com.google.auto.value.processor.AutoValueProcessor",
-    deps = [
-        "@auto-value-annotations//jar",
-        "@auto-value//jar",
-    ],
+    deps = PLUGIN_DEPS,
 )
 
 java_library(
@@ -35,8 +29,9 @@ java_library(
         ":auto-annotation-plugin",
         ":auto-value-plugin",
     ],
+    neverlink = True,
     visibility = ["//visibility:public"],
-    exports = ["@auto-value//jar"],
+    exports = PLUGIN_DEPS,
 )
 
 java_library(
@@ -45,8 +40,9 @@ java_library(
         ":auto-annotation-plugin",
         ":auto-value-plugin",
     ],
+    neverlink = True,
     visibility = ["//visibility:public"],
-    exports = ["@auto-value-annotations//jar"],
+    exports = PLUGIN_DEPS,
 )
 
 gerrit_plugin(

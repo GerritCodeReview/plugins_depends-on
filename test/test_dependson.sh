@@ -221,6 +221,15 @@ result_out "depends-on patchset level comment - REST" "$expected" "$out"
 
 # ------------------------- Depends-on query Test ---------------------------
 change=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || exit
+gssh gerrit review --message \'"Depends-on: 10 abc"\' "$change",1
+out=$(gssh gerrit query "change:$change" --depends-on--all)
+result "depends-on query without JSON SSH"
+result_out "depends-on query output 1 without JSON SSH" "changeNumber: 10" \
+    "$(echo "$out" | tail -8 | head -1 | xargs)"
+result_out "depends-on query output 2 without JSON SSH" "unresolved: abc" \
+    "$(echo "$out" | tail -6 | head -1 | xargs)"
+
+change=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || exit
 gssh gerrit review --message \
     \'"Depends-on: 10 30 Ieace383c14de79bf202c85063d5a46a0580724dd 20"\' "$change",1
 out=$(query_ssh "change:$change" --depends-on--all | jq --raw-output '.plugins[0].dependsOns')
