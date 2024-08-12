@@ -33,6 +33,7 @@ export const htmlTemplate = Polymer.html`
       --iron-icon-width: 18px;
     }
     .title {
+      color: var(--deemphasized-text-color);
       display: table-cell;
       vertical-align: top;
       max-width: 20em;
@@ -56,7 +57,14 @@ export const htmlTemplate = Polymer.html`
   </style>
   <div class="depends_on_block">
     <section>
-      <span class="title">Depends-on</span>
+      <span class="title">
+        <gr-tooltip-content
+          has-tooltip
+          title="List of changes that the current change depends on."
+        >
+          Depends-on
+        </gr-tooltip-content>
+      </span>
       <span class="value">
         <span hidden$="[[!_isPending]]">loading...</span>
         <span hidden$="[[_isPending]]">
