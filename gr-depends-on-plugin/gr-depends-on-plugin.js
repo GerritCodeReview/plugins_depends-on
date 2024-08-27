@@ -125,6 +125,19 @@ class GrDependsOnPlugin extends Polymer.Element {
       this._hasError = true;
     });
   }
+
+  // plugin change-metadata-items don't flex with core ones as the css layout
+  // is broken in core. Until core is fixed, use below logic to set the width
+  // of the title. This is fragile though and will likely break when new core
+  // metadata types are added or the logic for how they are rendered changes.
+  _computeTitleWidthClass() {
+    if ((this.change.project.length + this.change.branch.length < 40) ||
+        (!!this.change.cherry_pick_of_change &&
+            !!this.change.cherry_pick_of_patch_set)) {
+      return 'title-long';
+    }
+    return 'title-short';
+  }
 }
 
 customElements.define(GrDependsOnPlugin.is, GrDependsOnPlugin);
