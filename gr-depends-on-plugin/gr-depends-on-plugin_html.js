@@ -16,12 +16,13 @@
  */
 
 export const htmlTemplate = Polymer.html`
-  <style>
+  <style include="gr-change-metadata-shared-styles">
     a {
       color: var(--link-color);
     }
-    .depends_on_block {
-      padding-bottom: var(--spacing-m);
+    section .title,
+    section .value {
+      padding-top: var(--spacing-s);
     }
     .depends_on_info {
       display: inline;
@@ -55,39 +56,37 @@ export const htmlTemplate = Polymer.html`
       text-decoration: underline;
     }
   </style>
-  <div class="depends_on_block">
-    <section>
-      <span class="title">
-        <gr-tooltip-content
-          has-tooltip
-          title="List of changes that the current change depends on."
-        >
-          Depends-on
-        </gr-tooltip-content>
-      </span>
-      <span class="value">
-        <span hidden$="[[!_isPending]]">loading...</span>
-        <span hidden$="[[_isPending]]">
-          <span class="error" hidden$="[[!_hasError]]">Error loading</span>
-          <span hidden$="[[_hasError]]">
-            <template id="dependsOns" is="dom-repeat" indexAs="index" as="dependsOn"
-                items="[[_dependsOns]]">
-              <template is="dom-if" if="[[_canShow(_isExpanded, index)]]">
-                <span class="depends_on_info">
-                  <a href=/#/q/change:[[dependsOn.name]],n,z>[[dependsOn.name]]</a>
-                </span>
-              </template>
+  <section>
+    <span class="title">
+      <gr-tooltip-content
+        has-tooltip
+        title="List of changes that the current change depends on."
+      >
+        Depends-on-changes
+      </gr-tooltip-content>
+    </span>
+    <span class="value">
+      <span hidden$="[[!_isPending]]">loading...</span>
+      <span hidden$="[[_isPending]]">
+        <span class="error" hidden$="[[!_hasError]]">Error loading</span>
+        <span hidden$="[[_hasError]]">
+          <template id="dependsOns" is="dom-repeat" indexAs="index" as="dependsOn"
+              items="[[_dependsOns]]">
+            <template is="dom-if" if="[[_canShow(_isExpanded, index)]]">
+              <span class="depends_on_info">
+                <a href=/#/q/change:[[dependsOn.name]],n,z>[[dependsOn.name]]</a>
+              </span>
             </template>
-            <span class="elipses" hidden$="[[!_canShowElipses(_isExpanded, _dependsOns)]]"
-                on-click="_expand">
-              ...([[_getRemainingDependsOnsCount(_dependsOns)]])
-            </span>
-            <gr-depends-on-edit _change-number="[[_changeNumber]]" _revision="[[_revision]]"
-                _value="[[_getEditText(_dependsOns)]]"
-                _original-value="[[_getEditText(_dependsOns)]]" _plugin="[[plugin]]"/>
+          </template>
+          <span class="elipses" hidden$="[[!_canShowElipses(_isExpanded, _dependsOns)]]"
+              on-click="_expand">
+            ...([[_getRemainingDependsOnsCount(_dependsOns)]])
           </span>
+          <gr-depends-on-edit _change-number="[[_changeNumber]]" _revision="[[_revision]]"
+              _value="[[_getEditText(_dependsOns)]]"
+              _original-value="[[_getEditText(_dependsOns)]]" _plugin="[[plugin]]"/>
         </span>
       </span>
-    </section>
-  </div>
+    </span>
+  </section>
 `;
