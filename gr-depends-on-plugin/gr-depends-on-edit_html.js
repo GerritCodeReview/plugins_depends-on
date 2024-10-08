@@ -24,6 +24,7 @@ export const htmlTemplate = Polymer.html`
       color: var(--link-color);
     }
     .edit_button {
+      margin-left: 0px;
       height: 17px;
       width: 17px;
       min-width: 17px;
