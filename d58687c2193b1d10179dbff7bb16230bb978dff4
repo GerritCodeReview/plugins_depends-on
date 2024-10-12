@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20c09b2a_158e629a",
+        "filename": "gr-depends-on-plugin/gr-depends-on-edit_html.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2024-10-12T17:27:08Z",
+      "side": 1,
+      "message": "For future, if we want this to look like equivalent buttons in core we could look at https://gerrit.googlesource.com/gerrit/+/stable-3.9/polygerrit-ui/app/elements/shared/gr-editable-label/gr-editable-label.ts#148 (also L183).",
+      "revId": "d58687c2193b1d10179dbff7bb16230bb978dff4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
