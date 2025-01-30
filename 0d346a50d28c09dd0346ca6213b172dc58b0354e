@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34833e71_7c992cce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1152670
+      },
+      "writtenOn": "2025-01-30T12:45:46Z",
+      "side": 1,
+      "message": "You\u0027re also bumping node version",
+      "revId": "0d346a50d28c09dd0346ca6213b172dc58b0354e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26d44b8f_9e4dd944",
+        "filename": "package.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1152670
+      },
+      "writtenOn": "2025-01-30T12:45:46Z",
+      "side": 1,
+      "message": "```suggestion\n  \"version\": \"3.10.0-SNAPSHOT\",\n```",
+      "range": {
+        "startLine": 3,
+        "startChar": 14,
+        "endLine": 3,
+        "endChar": 28
+      },
+      "revId": "0d346a50d28c09dd0346ca6213b172dc58b0354e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
