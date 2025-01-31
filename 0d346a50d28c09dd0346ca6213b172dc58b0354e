@@ -98,6 +98,24 @@
       "message": "3.10 core has a different version of eslint, so we should update here too: https://gerrit.googlesource.com/gerrit/+/stable-3.10/package.json#18\n\nPlease also check the other package versions used here vs in core.",
       "revId": "0d346a50d28c09dd0346ca6213b172dc58b0354e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a781660_cc78824d",
+        "filename": "package.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 3380830
+      },
+      "writtenOn": "2025-01-31T10:50:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da83aa91_0aa23d42",
+      "revId": "0d346a50d28c09dd0346ca6213b172dc58b0354e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
