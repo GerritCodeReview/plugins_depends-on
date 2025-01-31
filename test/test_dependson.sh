@@ -224,10 +224,11 @@ change=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || exit
 gssh gerrit review --message \'"Depends-on: 10 abc"\' "$change",1
 out=$(gssh gerrit query "change:$change" --depends-on--all)
 result "depends-on query without JSON SSH"
-result_out "depends-on query output 1 without JSON SSH" "changeNumber: 10" \
-    "$(echo "$out" | tail -8 | head -1 | xargs)"
-result_out "depends-on query output 2 without JSON SSH" "unresolved: abc" \
-    "$(echo "$out" | tail -6 | head -1 | xargs)"
+depends_ons=$(echo "$out" | grep -A 1 dependsOns)
+result_out "depends-on query output 1 without JSON SSH" "changeNumber:10" \
+    "$(echo "$depends_ons" | grep changeNumber | sed 's/ //g')"
+result_out "depends-on query output 2 without JSON SSH" "unresolved:abc" \
+    "$(echo "$depends_ons" | grep unresolved | sed 's/ //g')"
 
 change=$(create_change "$SRC_REF_BRANCH" "$FILE_A") || exit
 gssh gerrit review --message \

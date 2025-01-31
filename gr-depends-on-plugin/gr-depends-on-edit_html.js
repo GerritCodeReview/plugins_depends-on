@@ -24,18 +24,25 @@ export const htmlTemplate = Polymer.html`
       color: var(--link-color);
     }
     .edit_button {
+      margin-left: 0px;
       height: 17px;
       width: 17px;
       min-width: 17px;
       padding: 0px;
       position: var(--layout-fit_-_position);
     }
-    .text_area {
-      min-height: 100px;
-      max-height: 150px;
-    }
     .depends_on_edit {
       display: inline;
+    }
+    iron-autogrow-textarea {
+      font-family: var(--monospace-font-family);
+      font-size: var(--font-size-mono);
+      line-height: var(--line-height-mono);
+      width: 50ch;
+      height: 10ch;
+    }
+    dialog {
+      z-index: 9999; /* To keep it above other elements */
     }
   </style>
   <div class="depends_on_edit">

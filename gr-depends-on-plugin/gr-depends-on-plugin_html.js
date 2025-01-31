@@ -16,12 +16,22 @@
  */
 
 export const htmlTemplate = Polymer.html`
-  <style>
+  <style include="gr-change-metadata-shared-styles">
     a {
       color: var(--link-color);
     }
-    .depends_on_block {
-      padding-bottom: var(--spacing-m);
+    .title {
+      padding-right: var(--spacing-xs);
+    }
+    section .title,
+    section .value {
+      padding-top: var(--spacing-s);
+    }
+    .title-short {
+      width: 74px;
+    }
+    .title-long {
+      width: 96px;
     }
     .depends_on_info {
       display: inline;
@@ -31,13 +41,6 @@ export const htmlTemplate = Polymer.html`
       color: inherit;
       --iron-icon-height: 18px;
       --iron-icon-width: 18px;
-    }
-    .title {
-      display: table-cell;
-      vertical-align: top;
-      max-width: 20em;
-      min-width: 7em;
-      padding-left: var(--metadata-horizontal-padding);
     }
     .value {
       display: table-cell;
@@ -56,7 +59,14 @@ export const htmlTemplate = Polymer.html`
   </style>
   <div class="depends_on_block">
     <section>
-      <span class="title">Depends-on</span>
+      <span class$="title [[_computeTitleWidthClass()]]">
+        <gr-tooltip-content
+          has-tooltip
+          title="List of changes that the current change depends on."
+        >
+          DependsOn
+        </gr-tooltip-content>
+      </span>
       <span class="value">
         <span hidden$="[[!_isPending]]">loading...</span>
         <span hidden$="[[_isPending]]">

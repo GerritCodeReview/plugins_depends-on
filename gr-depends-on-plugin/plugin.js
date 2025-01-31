@@ -19,5 +19,6 @@ import './gr-depends-on-plugin.js';
 
 Gerrit.install(plugin => {
   plugin.registerCustomComponent(
-      'change-metadata-item', 'gr-depends-on-plugin');
+      'change-metadata-item', 'gr-depends-on-plugin',
+      {slot: 'above-submit-requirements'});
 });
