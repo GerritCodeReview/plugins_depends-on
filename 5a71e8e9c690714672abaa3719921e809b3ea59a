@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6e4a196_f57dd95a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3380830
+      },
+      "writtenOn": "2025-02-05T10:29:41Z",
+      "side": 1,
+      "message": "in-tree build successfull on upstream-plugin-ci",
+      "revId": "5a71e8e9c690714672abaa3719921e809b3ea59a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
