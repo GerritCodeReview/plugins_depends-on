@@ -87,7 +87,7 @@ def eslint(name, plugins, srcs, config, ignore, extensions = [".js"], data = [])
             "*_test_require_patch.js",
             "--ignore-pattern",
             "*_test_loader.js",
-            "./", # Relative to the config file location
+            "./",  # Relative to the config file location
         ],
         # Should not run sandboxed.
         tags = [
@@ -110,4 +110,3 @@ def eslint(name, plugins, srcs, config, ignore, extensions = [".js"], data = [])
             "*_bin_loader.js",
         ],
     )
-

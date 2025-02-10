@@ -109,7 +109,8 @@ sh_test(
     size = "medium",
     srcs = ["test/docker/run.sh"],
     args = [
-        "--plugin", plugin_name,
+        "--plugin",
+        plugin_name,
         "$(location :depends-on)",
     ],
     data = [plugin_name] + glob(["test/**"]),

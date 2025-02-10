@@ -9,4 +9,3 @@ filegroup(
     name = "eslint-rules-srcs",
     srcs = glob(["**/*.js"]),
 )
-
