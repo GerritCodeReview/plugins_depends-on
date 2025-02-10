@@ -8,6 +8,7 @@ load(
     "gerrit_plugin",
 )
 load("@rules_java//java:defs.bzl", "java_library", "java_plugin")
+load(":paths.bzl", "join")
 
 plugin_name = "depends-on"
 
@@ -59,6 +60,10 @@ gerrit_plugin(
     deps = [
         ":auto-value",
         ":auto-value-annotations",
+        "//" + join(
+            package_name(),
+            "src/main/java/com/googlesource/gerrit/plugins/depends/on/extensions",
+        ),
     ],
 )
 
