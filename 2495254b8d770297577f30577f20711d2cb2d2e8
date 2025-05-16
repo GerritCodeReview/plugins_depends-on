@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ffe6c6b_bd4d263a",
+        "filename": "gr-depends-on-plugin/gr-depends-on-plugin.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2025-05-16T21:53:33Z",
+      "side": 1,
+      "message": "I don\u0027t think you need the inner `Number()`. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isInteger#using_isinteger\n```suggestion\n    if (Number.isInteger(key)) {\n```",
+      "revId": "2495254b8d770297577f30577f20711d2cb2d2e8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
