@@ -76,7 +76,7 @@ export const htmlTemplate = Polymer.html`
                 items="[[_dependsOns]]">
               <template is="dom-if" if="[[_canShow(_isExpanded, index)]]">
                 <span class="depends_on_info">
-                  <a href=/#/q/change:[[dependsOn.name]],n,z>[[dependsOn.name]]</a>
+                  <a href=[[_computeUrl(dependsOn.name)]]>[[dependsOn.name]]</a>
                 </span>
               </template>
             </template>

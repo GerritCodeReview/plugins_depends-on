@@ -138,6 +138,14 @@ class GrDependsOnPlugin extends Polymer.Element {
     }
     return 'title-short';
   }
+
+  _computeUrl(key) {
+    if (Number.isInteger(Number(key))) {
+      return `/${key}`;
+    } else {
+      return `/#/q/change:${key}`;
+    }
+  }
 }
 
 customElements.define(GrDependsOnPlugin.is, GrDependsOnPlugin);
