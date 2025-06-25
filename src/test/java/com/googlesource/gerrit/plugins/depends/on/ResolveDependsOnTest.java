@@ -14,13 +14,18 @@
 
 package com.googlesource.gerrit.plugins.depends.on;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import com.google.gerrit.testing.InMemoryModule;
 import java.util.HashSet;
 import java.util.Set;
-import junit.framework.TestCase;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-public class ResolveDependsOnTest extends TestCase {
+@RunWith(JUnit4.class)
+public class ResolveDependsOnTest {
   public static final String NUM = "1234";
   public static final String NUM2 = "345";
   public static final String KEY = "Iabcdef7890abcdef7890abcdef7890abcdef7890";
@@ -31,42 +36,36 @@ public class ResolveDependsOnTest extends TestCase {
   public static DependsOn KEY_DEP;
   public static DependsOn KEY2_DEP;
 
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    new InMemoryModule().inject(this); // Needed to setup KeyUtil.ENCODER_IMPL
+  @Before
+  public void setUp() {
+    new InMemoryModule().inject(this); // Needed to set up KeyUtil.ENCODER_IMPL
     NUM_DEP = DependsOn.create(NUM);
     NUM2_DEP = DependsOn.create(NUM2);
     KEY_DEP = DependsOn.create(KEY);
     KEY2_DEP = DependsOn.create(KEY2);
   }
 
-  @Override
-  protected void tearDown() throws Exception {
-    super.tearDown();
-  }
-
   @Test
   public void testResolved2Nums() {
-    Set<DependsOn> deps = new HashSet<DependsOn>();
+    Set<DependsOn> deps = new HashSet<>();
     deps.add(NUM_DEP);
     deps.add(NUM2_DEP);
-    assertTrue(Resolver.isResolved(deps));
+    assertThat(Resolver.isResolved(deps)).isTrue();
   }
 
   @Test
   public void testResolved2Keys() {
-    Set<DependsOn> deps = new HashSet<DependsOn>();
+    Set<DependsOn> deps = new HashSet<>();
     deps.add(KEY_DEP);
     deps.add(KEY2_DEP);
-    assertFalse(Resolver.isResolved(deps));
+    assertThat(Resolver.isResolved(deps)).isFalse();
   }
 
   @Test
   public void testResolvedNumAndKey() {
-    Set<DependsOn> deps = new HashSet<DependsOn>();
+    Set<DependsOn> deps = new HashSet<>();
     deps.add(NUM_DEP);
     deps.add(KEY_DEP);
-    assertFalse(Resolver.isResolved(deps));
+    assertThat(Resolver.isResolved(deps)).isFalse();
   }
 }

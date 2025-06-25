@@ -27,13 +27,9 @@ import com.google.inject.Singleton;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Singleton
 public class InDependsOnOperator implements ChangeOperatorFactory {
-  private static final Logger log = LoggerFactory.getLogger(InDependsOnOperator.class);
-
   public static final String FIELD = "in";
 
   protected final ChangeMessageStore changeMessageStore;

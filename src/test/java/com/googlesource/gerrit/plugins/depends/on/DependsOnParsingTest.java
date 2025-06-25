@@ -14,14 +14,20 @@
 
 package com.googlesource.gerrit.plugins.depends.on;
 
+import static com.google.common.truth.Truth.assertThat;
+import static com.google.common.truth.Truth.assertWithMessage;
+
 import com.google.gerrit.testing.InMemoryModule;
 import com.googlesource.gerrit.plugins.depends.on.formats.Comment;
 import java.util.List;
 import java.util.Optional;
-import junit.framework.TestCase;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-public class DependsOnParsingTest extends TestCase {
+@RunWith(JUnit4.class)
+public class DependsOnParsingTest {
   public static final String NUM = "1234";
   public static final String NUM2 = "345";
   public static final String KEY = "Iabcdef7890abcdef7890abcdef7890abcdef7890";
@@ -30,175 +36,184 @@ public class DependsOnParsingTest extends TestCase {
   public static DependsOn NUM_DEP;
   public static DependsOn KEY_DEP;
 
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
+  @Before
+  public void setUp() {
     new InMemoryModule().inject(this); // Needed to setup KeyUtil.ENCODER_IMPL
     NUM_DEP = DependsOn.create(NUM);
     KEY_DEP = DependsOn.create(KEY);
   }
 
-  @Override
-  protected void tearDown() throws Exception {
-    super.tearDown();
-  }
-
   @Test
   public void testCommentMessageChangeNum() {
-    assertTrue(NUM.equals(Comment.getMessage(NUM_DEP)));
+    assertThat(Comment.getMessage(NUM_DEP)).isEqualTo(NUM);
   }
 
   @Test
   public void testCommentMessageChangeKey() {
-    assertTrue(KEY.equals(Comment.getMessage(KEY_DEP)));
+    assertThat(Comment.getMessage(KEY_DEP)).isEqualTo(KEY);
   }
 
   @Test
   public void testParseNum() {
     DependsOn dep = DependsOn.create(NUM);
-    assertTrue(NUM.equals("" + dep.id().get()));
+    assertThat("" + dep.id().get()).isEqualTo(NUM);
   }
 
   @Test
   public void testParseKey() {
     DependsOn dep = DependsOn.create(KEY);
-    assertTrue(KEY.equals(dep.key().get()));
+    assertThat(dep.key().get()).isEqualTo(KEY);
   }
 
   @Test
   public void testParseNoneComment() {
     String comment = "My Very Educated Mother Just Served Us Nothing!";
-    Optional<List<DependsOn>> deps = Comment.from(comment);
-    assertFalse(deps.isPresent());
+    assertThat(Comment.from(comment)).isEmpty();
   }
 
   @Test
   public void testParseEmptyComment() {
     String comment = "Depends-on:";
     Optional<List<DependsOn>> deps = Comment.from(comment);
-    assertTrue(deps.get().size() == 0);
+    assertThat(deps).isPresent();
+    assertThat(deps.get()).hasSize(0);
   }
 
   @Test
   public void testParseOneNumComment() {
     String comment = "Depends-on:" + NUM;
     Optional<List<DependsOn>> deps = Comment.from(comment);
+    assertThat(deps).isPresent();
     for (DependsOn dep : deps.get()) {
-      assertTrue(NUM.equals("" + dep.id().get()));
+      assertThat("" + dep.id().get()).isEqualTo(NUM);
       return;
     }
-    assertTrue(false);
+    assertWithMessage("not expected to reach").fail();
   }
 
   @Test
   public void testParseOneKeyComment() {
     String comment = "Depends-on:" + KEY;
     Optional<List<DependsOn>> deps = Comment.from(comment);
+    assertThat(deps).isPresent();
     for (DependsOn dep : deps.get()) {
-      assertTrue(KEY.equals("" + dep.key().get()));
+      assertThat(dep.key().get()).isEqualTo(KEY);
       return;
     }
-    assertTrue(false);
+    assertWithMessage("not expected to reach").fail();
   }
 
   @Test
   public void testParseTwoNumsComment() {
     String comment = "Depends-on:" + NUM + " " + NUM2;
     Optional<List<DependsOn>> deps = Comment.from(comment);
-    assertTrue(deps.get().size() == 2);
+    assertThat(deps).isPresent();
+    assertThat(deps.get()).hasSize(2);
     int found = 0;
     for (DependsOn dep : deps.get()) {
-      assertTrue(NUM.equals("" + dep.id().get()) || NUM2.equals("" + dep.id().get()));
+      assertThat("" + dep.id().get()).isAnyOf(NUM, NUM2);
       found++;
     }
-    assertTrue(found == 2);
+    assertThat(found).isEqualTo(2);
   }
 
   @Test
   public void testParseTwoKeyComments() {
     String comment = "Depends-on:" + KEY + " " + KEY2;
     Optional<List<DependsOn>> deps = Comment.from(comment);
-    assertTrue(deps.get().size() == 2);
+    assertThat(deps).isPresent();
+    assertThat(deps.get()).hasSize(2);
     int found = 0;
     for (DependsOn dep : deps.get()) {
-      assertTrue(KEY.equals("" + dep.key().get()) || KEY2.equals("" + dep.key().get()));
+      assertThat(dep.key().get()).isAnyOf(KEY, KEY2);
       found++;
     }
-    assertTrue(found == 2);
+    assertThat(found).isEqualTo(2);
   }
 
   @Test
   public void testParseNumAndKeyComment() {
     String comment = "Depends-on:" + NUM + " " + KEY;
     Optional<List<DependsOn>> deps = Comment.from(comment);
-    assertTrue(deps.get().size() == 2);
+    assertThat(deps).isPresent();
+    assertThat(deps.get()).hasSize(2);
     int found = 0;
     for (DependsOn dep : deps.get()) {
       try {
-        assertTrue(NUM.equals("" + dep.id().get()));
+        assertThat("" + dep.id().get()).isEqualTo(NUM);
       } catch (Exception e) {
-        assertTrue(KEY.equals("" + dep.key().get()));
+        assertThat(dep.key().get()).isEqualTo(KEY);
       }
       found++;
     }
-    assertTrue(found == 2);
+    assertThat(found).isEqualTo(2);
   }
 
+  @Test
   public void testParseTwoNumsCommaComment() {
     String comment = "Depends-on:" + NUM + "," + NUM2;
     Optional<List<DependsOn>> deps = Comment.from(comment);
-    assertTrue(deps.get().size() == 2);
+    assertThat(deps).isPresent();
+    assertThat(deps.get()).hasSize(2);
     int found = 0;
     for (DependsOn dep : deps.get()) {
-      assertTrue(NUM.equals("" + dep.id().get()) || NUM2.equals("" + dep.id().get()));
+      assertThat("" + dep.id().get()).isAnyOf(NUM, NUM2);
       found++;
     }
-    assertTrue(found == 2);
+    assertThat(found).isEqualTo(2);
   }
 
+  @Test
   public void testParseTwoNumsCommaSpaceComment() {
     String comment = "Depends-on:" + NUM + ", " + NUM2;
     Optional<List<DependsOn>> deps = Comment.from(comment);
-    assertTrue(deps.get().size() == 2);
+    assertThat(deps).isPresent();
+    assertThat(deps.get()).hasSize(2);
     int found = 0;
     for (DependsOn dep : deps.get()) {
-      assertTrue(NUM.equals("" + dep.id().get()) || NUM2.equals("" + dep.id().get()));
+      assertThat("" + dep.id().get()).isAnyOf(NUM, NUM2);
       found++;
     }
-    assertTrue(found == 2);
+    assertThat(found).isEqualTo(2);
   }
 
+  @Test
   public void testParseTwoNumsWhiteComment() {
     String comment = "Depends-on:" + NUM + ", \t" + NUM2;
     Optional<List<DependsOn>> deps = Comment.from(comment);
-    assertTrue(deps.get().size() == 2);
+    assertThat(deps).isPresent();
+    assertThat(deps.get()).hasSize(2);
     int found = 0;
     for (DependsOn dep : deps.get()) {
-      assertTrue(NUM.equals("" + dep.id().get()) || NUM2.equals("" + dep.id().get()));
+      assertThat("" + dep.id().get()).isAnyOf(NUM, NUM2);
       found++;
     }
-    assertTrue(found == 2);
+    assertThat(found).isEqualTo(2);
   }
 
+  @Test
   public void testParseTwoNumsNewLineWhiteComment() {
     // Should stop processing at newline
     String comment = "Depends-on:" + NUM + ", \t\n" + NUM2;
     Optional<List<DependsOn>> deps = Comment.from(comment);
-    assertTrue(deps.get().size() == 1);
+    assertThat(deps).isPresent();
+    assertThat(deps.get()).hasSize(1);
     for (DependsOn dep : deps.get()) {
-      assertTrue(NUM.equals("" + dep.id().get()));
+      assertThat("" + dep.id().get()).isEqualTo(NUM);
     }
   }
 
+  @Test
   public void testParseEmbeddedComment() {
     String comment = "Patch Set 2:\n\nDepends-on:" + NUM + " " + NUM2 + "\nHey\n";
     Optional<List<DependsOn>> deps = Comment.from(comment);
-    assertTrue(deps.get().size() == 2);
+    assertThat(deps).isPresent();
+    assertThat(deps.get()).hasSize(2);
     int found = 0;
     for (DependsOn dep : deps.get()) {
-      assertTrue(NUM.equals("" + dep.id().get()) || NUM2.equals("" + dep.id().get()));
+      assertThat("" + dep.id().get()).isAnyOf(NUM, NUM2);
       found++;
     }
-    assertTrue(found == 2);
+    assertThat(found).isEqualTo(2);
   }
 }

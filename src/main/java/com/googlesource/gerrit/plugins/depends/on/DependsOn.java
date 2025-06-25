@@ -38,13 +38,8 @@ public abstract class DependsOn {
   public abstract Change.Key key();
 
   public static DependsOn create(String change) {
-    Optional<Id> id = null;
-    Change.Key key = null;
-    id = Change.Id.tryParse(change);
-    if (!id.isPresent()) {
-      return create(Change.Key.parse(change));
-    }
-    return create(id.get(), key);
+    Optional<Id> id = Change.Id.tryParse(change);
+    return id.map(cid -> create(cid, null)).orElseGet(() -> create(Change.Key.parse(change)));
   }
 
   public static DependsOn create(Change.Key key) {

@@ -52,7 +52,7 @@ public class DependsOnAttributeFactory implements ChangePluginDefinedInfoFactory
     for (ChangeData changeData : cds) {
       try {
         List<DependsOn> dependsOns = changeMessageStore.loadWithOrder(changeData.getId());
-        if (dependsOns.size() > 0) {
+        if (!dependsOns.isEmpty()) {
           DependsOnPluginAttributes dependsOnPluginAttributes = new DependsOnPluginAttributes();
           dependsOnPluginAttributes.addDependsOns(dependsOns);
           dependsOnAttributesByChange.put(changeData.getId(), dependsOnPluginAttributes);

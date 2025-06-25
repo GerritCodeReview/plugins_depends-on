@@ -42,8 +42,7 @@ public class CoreListener implements EventListener {
 
   @Override
   public void onEvent(Event event) {
-    if (event instanceof PatchSetCreatedEvent) {
-      PatchSetCreatedEvent patchSetCreatedEvent = (PatchSetCreatedEvent) event;
+    if (event instanceof PatchSetCreatedEvent patchSetCreatedEvent) {
       ChangeAttribute change = patchSetCreatedEvent.change.get();
       if (change.cherryPickOfChange != null && patchSetCreatedEvent.patchSet.get().number == 1) {
         try {

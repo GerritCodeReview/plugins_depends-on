@@ -41,7 +41,7 @@ public class Propagator {
 
     Set<DependsOn> deps = changeMessageStore.load(srcChange);
     if (!deps.isEmpty()) {
-      Set<DependsOn> keyDeps = new HashSet<DependsOn>(deps.size());
+      Set<DependsOn> keyDeps = new HashSet<>(deps.size());
       for (DependsOn dep : deps) {
         keyDeps.add(DependsOn.create(loadChangeKey(dep)));
       }
@@ -68,7 +68,7 @@ public class Propagator {
     // as a Key, it will inherently carry along random strings.
     // This is thus used to carry unidentified dependencies to
     // propagated changes (the assumption is that the user needs
-    // to fix it). Piggy back here on this idea for change-nums
+    // to fix it). Piggyback here on this idea for change-nums
     // that lead to unidentified changes (treat them as bad
     // strings, and throw them into the change-id to get
     // propagated).

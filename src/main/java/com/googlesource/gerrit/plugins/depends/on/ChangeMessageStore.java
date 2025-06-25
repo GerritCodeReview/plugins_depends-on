@@ -40,18 +40,18 @@ import com.googlesource.gerrit.plugins.depends.on.extensions.DependencyResolver;
 import com.googlesource.gerrit.plugins.depends.on.formats.Comment;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ChangeMessageStore implements DependencyResolver {
   private static final Logger log = LoggerFactory.getLogger(ChangeMessageStore.class);
 
-  public static class DependsOnByChangeCache extends HashMap {}
+  public static class DependsOnByChangeCache extends HashMap<Change.Id, List<DependsOn>> {}
 
   protected static final PerThreadCache.Key<DependsOnByChangeCache> DEPENDS_ON_BY_CHANGE_CACHE_KEY =
       PerThreadCache.Key.create(DependsOnByChangeCache.class);
@@ -88,17 +88,17 @@ public class ChangeMessageStore implements DependencyResolver {
 
   /**
    * Load the current DependsOn from the DB for a specific change. "Current" is defined as the last
-   * Depends-on defined. Older Depends-ons are assumed to be overriden by the last one. If the last
+   * Depends-on defined. Older Depends-ons are assumed to be overridden by the last one. If the last
    * Depends-on is blank, it deletes any previous dependencies.
    *
    * <p>return empty set means no dependencies found.
    */
   public Set<DependsOn> load(Change.Id cid) throws StorageException {
-    return loadWithOrder(cid).stream().collect(Collectors.toSet());
+    return new HashSet<>(loadWithOrder(cid));
   }
 
   public Set<DependsOn> load(ChangeNotes changeNotes) throws StorageException {
-    return loadWithOrder(changeNotes).stream().collect(Collectors.toSet());
+    return new HashSet<>(loadWithOrder(changeNotes));
   }
 
   public List<DependsOn> loadWithOrder(Change.Id cid) throws StorageException {
@@ -168,7 +168,7 @@ public class ChangeMessageStore implements DependencyResolver {
       throws InvalidChangeOperationException, StorageException {
     StringBuilder comment = new StringBuilder();
     if (message != null) {
-      comment.append(message + "\n\n");
+      comment.append(message).append("\n\n");
     }
     comment.append(Comment.getMessages(deps));
     ReviewInput review = new ReviewInput();

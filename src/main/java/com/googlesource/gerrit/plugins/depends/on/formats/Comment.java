@@ -41,7 +41,7 @@ public class Comment {
         return Optional.of(
             Arrays.stream(changes.split("\\s+", -1)) // -> ["1234", "4444"]
                 .filter(c -> !c.isEmpty())
-                .map(c -> DependsOn.create(c))
+                .map(DependsOn::create)
                 .collect(Collectors.toList()));
       }
     }
@@ -60,7 +60,7 @@ public class Comment {
   public static StringBuilder getMessages(Set<DependsOn> dependsons) {
     StringBuilder dependencies = new StringBuilder("Depends-on:");
     for (DependsOn dep : dependsons) {
-      dependencies.append(" " + getMessage(dep));
+      dependencies.append(" ").append(getMessage(dep));
     }
     return dependencies;
   }

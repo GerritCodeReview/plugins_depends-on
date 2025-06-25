@@ -31,7 +31,7 @@ public class DependsOnOperator implements ChangeOperatorFactory {
   public static final String FIELD = "has";
 
   public class DependsOnPredicate extends PostFilterPredicate<ChangeData> {
-    private Predicate<ChangeData> subQuery;
+    private final Predicate<ChangeData> subQuery;
 
     public DependsOnPredicate(Predicate<ChangeData> subQuery) {
       super(FIELD, subQuery.toString());
@@ -49,7 +49,7 @@ public class DependsOnOperator implements ChangeOperatorFactory {
       List<ChangeNotes> changeNotes =
           changeNotesFactory.createUsingIndexLookup(
               dependOns.stream()
-                  .filter(d -> d.isResolved())
+                  .filter(DependsOn::isResolved)
                   .map(DependsOn::id)
                   .collect(Collectors.toList()));
       return changeNotes.stream()
